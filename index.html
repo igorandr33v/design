@@ -3,22 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Folder Cabinet</title>
+<title>Интерактивная картотека</title>
 <style>
   :root {
-    --bg-color: #f9f9f9;
-    --line-color: #000;
-    --font-main: 'Courier New', Courier, monospace;
+    --black: #111;
+    --white: #fafafa;
+    --font: 'Courier New', Courier, monospace;
   }
 
   body {
-    background-color: var(--bg-color);
-    font-family: var(--font-main);
+    background-color: #e0e0e0; /* Темный фон для контраста белых папок */
+    font-family: var(--font);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     height: 100vh;
     margin: 0;
+    padding-bottom: 50px;
+    box-sizing: border-box;
     overflow: hidden;
   }
 
@@ -26,205 +28,156 @@
     position: relative;
     width: 800px;
     height: 600px;
-    margin-top: 150px; /* Место для выезда папок */
   }
 
+  /* Базовый стиль папки */
   .folder {
     position: absolute;
-    bottom: 0;
     width: 100%;
     height: 500px;
-    background: #fff;
-    border: 1px solid var(--line-color);
-    border-radius: 5px 5px 0 0;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0s;
-    /* Базовый z-index задается через inline-стили */
-  }
-
-  .folder::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #fff;
-    z-index: 10;
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), z-index 0s 0.1s;
+    transform-origin: bottom;
   }
 
   .tab {
     position: absolute;
-    top: -31px;
-    left: var(--tab-left, 10%);
-    padding: 6px 30px;
-    background: #fff;
-    border: 1px solid var(--line-color);
-    border-bottom: 1px solid #fff; /* Скрываем нижнюю границу */
+    top: -34px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 25px;
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-bottom: none;
     border-radius: 12px 12px 0 0;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    z-index: 2;
-    transition: background 0.3s;
-  }
-  
-  /* Эффект выезда при наведении на папку (или саму вкладку) */
-  .folder:hover {
-    transform: translateY(-120px);
-    z-index: 100 !important; /* Выводим на передний план */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  }
-  
-  .folder:hover .tab {
-    background: var(--line-color);
-    color: #fff;
-    border-color: var(--line-color);
+    transition: background 0.3s, color 0.3s;
   }
 
-  /* --- Содержимое документа (Paper) --- */
+  /* Анимация при наведении. Контейнер расширяется вверх, поэтому мышь не "соскальзывает" */
+  .folder:hover {
+    transform: translateY(-150px);
+    z-index: 100 !important;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), z-index 0s 0s;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+
+  .folder:hover .tab {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* Расстановка слоев (от заднего к переднему) */
+  #folder1 { z-index: 1; bottom: 80px; }  #folder1 .tab { left: 5%; }
+  #folder2 { z-index: 2; bottom: 60px; }  #folder2 .tab { left: 25%; }
+  #folder3 { z-index: 3; bottom: 40px; }  #folder3 .tab { left: 45%; }
+  #folder4 { z-index: 4; bottom: 20px; }  #folder4 .tab { left: 65%; }
+  
+  /* Главная папка (поверх остальных) */
+  #folder5 { z-index: 5; bottom: 0px; }   
+  #folder5 .tab { 
+    left: 15%; 
+    background: var(--black); 
+    color: var(--white); 
+  }
+
+  /* Внутреннее содержимое папки (Paper) */
   .paper {
     padding: 30px;
     height: 100%;
     box-sizing: border-box;
-    background: #fff;
+    /* pointer-events: none на контенте предотвращает баги с наведением на дочерние элементы */
+    pointer-events: none; 
   }
 
   .inner-border {
-    border: 1px dashed var(--line-color);
+    border: 1px dashed var(--black);
     height: 100%;
     padding: 20px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
   }
 
-  .header {
-    border: 1px solid var(--line-color);
-    margin-bottom: 30px;
-  }
-
   .header-top {
-    background: var(--line-color);
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 24px;
+    background: var(--black);
+    color: var(--white);
+    padding: 10px;
+    font-size: 28px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
   }
 
   .header-bottom {
-    background: #fff;
-    color: var(--line-color);
+    border: 2px solid var(--black);
+    border-top: none;
     padding: 5px 10px;
-    font-size: 24px;
-    letter-spacing: 5px;
+    font-size: 22px;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
   }
 
   .content-grid {
     display: flex;
     gap: 40px;
-    flex-grow: 1;
   }
 
-  .column-left {
-    flex: 1;
-  }
-
-  .column-right {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+  .column-left, .column-right { flex: 1; }
+  .column-right { flex: 1.5; }
 
   .small-label {
-    font-size: 10px;
-    margin-bottom: 5px;
+    font-size: 11px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
   }
 
-  /* Сетка здания */
   .building-diagram {
-    width: 120px;
-    height: 200px;
-    border: 1px solid var(--line-color);
+    width: 140px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 20px);
     gap: 2px;
+    border: 2px solid var(--black);
     padding: 4px;
-    position: relative;
-  }
-  
-  .building-diagram::before {
-    content: '';
-    position: absolute;
-    top: -10px; left: 50%;
-    transform: translateX(-50%);
-    width: 2px; height: 10px; background: var(--line-color);
   }
 
-  .window {
-    border: 1px solid var(--line-color);
-  }
+  .window { border: 1px solid var(--black); }
+  .window.dark { background: var(--black); }
 
-  .window.dark {
-    background: var(--line-color);
-  }
-
-  /* Блок с датой */
   .black-box {
-    background: var(--line-color);
-    color: #fff;
-    padding: 20px;
-    font-size: 28px;
+    background: var(--black);
+    color: var(--white);
+    padding: 15px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 1.2;
+    text-align: left;
+    margin-bottom: 20px;
   }
 
   .showroom-hours {
-    border: 1px solid var(--line-color);
+    border: 2px solid var(--black);
     padding: 10px;
     font-size: 12px;
   }
-  
+
   .days-row {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 8px;
     align-items: center;
+    margin-top: 5px;
   }
 
   .circle {
-    width: 10px;
-    height: 10px;
-    border: 1px solid var(--line-color);
+    width: 10px; height: 10px;
+    border: 1px solid var(--black);
     border-radius: 50%;
-    display: inline-block;
   }
-  .circle.filled {
-    background: var(--line-color);
-  }
-
-  /* Специфичные стили для папок, чтобы создать "стопку" */
-  #folder1 { z-index: 1; --tab-left: 5%; bottom: 40px; }
-  #folder2 { z-index: 2; --tab-left: 25%; bottom: 30px; }
-  #folder3 { z-index: 3; --tab-left: 45%; bottom: 20px; }
-  #folder4 { z-index: 4; --tab-left: 65%; bottom: 10px; }
-  
-  #folder-main { 
-    z-index: 5; 
-    --tab-left: 20%; 
-    bottom: 0px; 
-  }
-  #folder-main .tab {
-    background: var(--line-color);
-    color: #fff;
-  }
-  
-  #folder5 { z-index: 6; --tab-left: 40%; bottom: -10px; }
-  #folder6 { z-index: 7; --tab-left: 60%; bottom: -20px; }
+  .circle.filled { background: var(--black); }
 
 </style>
 </head>
@@ -232,4 +185,112 @@
 
 <div class="cabinet">
 
-  <div class="folder" id
+  <!-- Папка 1 -->
+  <div class="folder" id="folder1">
+    <div class="tab">DESIGNER</div>
+    <div class="paper"><div class="inner-border">
+      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
+      <div class="header-bottom">HEADQUARTERS</div>
+      <div class="content-grid">
+        <div class="column-left">
+          <div class="small-label">BUILDING DIAGRAM</div>
+          <div class="building-diagram">
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+            <div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div>
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+          </div>
+        </div>
+        <div class="column-right">
+          <div class="small-label">EVENT</div>
+          <div class="black-box">INAUGURACION<br>16.08.25</div>
+          <div class="small-label">SHOWROOM HOURS</div>
+          <div class="showroom-hours">
+            <div>OPEN:</div>
+            <div class="days-row">
+              <div class="circle"></div> MON 
+              <div class="circle filled"></div> WED 
+              <div class="circle filled"></div> FRI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Папка 2 -->
+  <div class="folder" id="folder2">
+    <div class="tab">JEWELRY</div>
+    <div class="paper"><div class="inner-border">
+      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
+      <div class="header-bottom">HEADQUARTERS</div>
+      <div class="content-grid">
+        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Папка 3 -->
+  <div class="folder" id="folder3">
+    <div class="tab">VINTAGE</div>
+    <div class="paper"><div class="inner-border">
+      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
+      <div class="header-bottom">HEADQUARTERS</div>
+      <div class="content-grid">
+        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Папка 4 -->
+  <div class="folder" id="folder4">
+    <div class="tab">COFFEE</div>
+    <div class="paper"><div class="inner-border">
+      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
+      <div class="header-bottom">HEADQUARTERS</div>
+      <div class="content-grid">
+        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Главная Папка (Самая верхняя) -->
+  <div class="folder" id="folder5">
+    <div class="tab">___494___</div>
+    <div class="paper"><div class="inner-border">
+      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
+      <div class="header-bottom">HEADQUARTERS</div>
+      <div class="content-grid">
+        <div class="column-left">
+          <div class="small-label">BUILDING DIAGRAM</div>
+          <div class="building-diagram">
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+            <div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div>
+            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
+          </div>
+        </div>
+        <div class="column-right">
+          <div class="small-label">EVENT</div>
+          <div class="black-box">INAUGURACION<br>16.08.25</div>
+          <div class="small-label">SHOWROOM HOURS</div>
+          <div class="showroom-hours">
+            <div>OPEN:</div>
+            <div class="days-row">
+              <div class="circle"></div> MON 
+              <div class="circle filled"></div> WED 
+              <div class="circle filled"></div> FRI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+</div>
+
+</body>
+</html>
