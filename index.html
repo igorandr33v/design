@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Интерактивная картотека</title>
+<title>Закрытая картотека</title>
 <style>
   :root {
     --black: #111;
@@ -12,14 +12,14 @@
   }
 
   body {
-    background-color: #e0e0e0; /* Темный фон для контраста белых папок */
+    background-color: #d5d5d5;
     font-family: var(--font);
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-end; /* Прижимаем шкаф к низу */
     height: 100vh;
     margin: 0;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -27,20 +27,56 @@
   .cabinet {
     position: relative;
     width: 800px;
-    height: 600px;
+    height: 750px; /* Высота шкафа с учетом выезда папок */
+  }
+
+  /* Передняя стенка ящика (скрывает содержимое закрытых папок) */
+  .cabinet-front {
+    position: absolute;
+    bottom: 0;
+    left: -20px;
+    width: 840px;
+    height: 240px;
+    background: var(--white);
+    border: 2px solid var(--black);
+    z-index: 10;
+    border-radius: 4px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Декоративная ручка ящика */
+  .drawer-handle {
+    width: 140px;
+    height: 40px;
+    border: 2px solid var(--black);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 6px;
+    box-sizing: border-box;
+    background: #eaeaea;
+  }
+  .drawer-handle div {
+    height: 2px;
+    background: var(--black);
   }
 
   /* Базовый стиль папки */
   .folder {
     position: absolute;
     width: 100%;
-    height: 500px;
+    height: 520px;
     background: var(--white);
     border: 2px solid var(--black);
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), z-index 0s 0.1s;
-    transform-origin: bottom;
+    border-radius: 12px 12px 0 0;
+    
+    /* ПРАВИЛО 1: Сама папка не реагирует на мышь, чтобы наведение работало только на вкладку */
+    pointer-events: none; 
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .tab {
@@ -48,23 +84,33 @@
     top: -34px;
     height: 32px;
     line-height: 32px;
-    padding: 0 25px;
+    padding: 0 30px;
     background: var(--white);
     border: 2px solid var(--black);
     border-bottom: none;
     border-radius: 12px 12px 0 0;
     font-size: 14px;
     font-weight: bold;
+    
+    /* ПРАВИЛО 1: Вкладка ловит мышь */
+    pointer-events: auto; 
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
   }
 
-  /* Анимация при наведении. Контейнер расширяется вверх, поэтому мышь не "соскальзывает" */
+  /* Невидимый мост для вкладки, чтобы при выезде наверх мышь не теряла фокус */
+  .tab::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 450px; 
+  }
+
+  /* Анимация при наведении только на .tab */
   .folder:hover {
-    transform: translateY(-150px);
-    z-index: 100 !important;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), z-index 0s 0s;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transform: translateY(-420px);
   }
 
   .folder:hover .tab {
@@ -72,27 +118,27 @@
     color: var(--white);
   }
 
-  /* Расстановка слоев (от заднего к переднему) */
-  #folder1 { z-index: 1; bottom: 80px; }  #folder1 .tab { left: 5%; }
-  #folder2 { z-index: 2; bottom: 60px; }  #folder2 .tab { left: 25%; }
-  #folder3 { z-index: 3; bottom: 40px; }  #folder3 .tab { left: 45%; }
-  #folder4 { z-index: 4; bottom: 20px; }  #folder4 .tab { left: 65%; }
-  
-  /* Главная папка (поверх остальных) */
-  #folder5 { z-index: 5; bottom: 0px; }   
+  /* ПРАВИЛО 2 и 3:
+     Позиционируем папки лесенкой ВНИЗУ (прячем в ящик).
+     z-index строго фиксирован, чтобы задняя папка выезжала ПОЗАДИ передних.
+  */
+  #folder1 { z-index: 1; bottom: -110px; } #folder1 .tab { left: 5%; }
+  #folder2 { z-index: 2; bottom: -150px; } #folder2 .tab { left: 25%; }
+  #folder3 { z-index: 3; bottom: -190px; } #folder3 .tab { left: 45%; }
+  #folder4 { z-index: 4; bottom: -230px; } #folder4 .tab { left: 65%; }
+  #folder5 { z-index: 5; bottom: -270px; } 
   #folder5 .tab { 
-    left: 15%; 
+    left: 20%; 
     background: var(--black); 
     color: var(--white); 
   }
 
-  /* Внутреннее содержимое папки (Paper) */
+  /* Внутреннее содержимое документа */
   .paper {
-    padding: 30px;
+    padding: 25px;
     height: 100%;
     box-sizing: border-box;
-    /* pointer-events: none на контенте предотвращает баги с наведением на дочерние элементы */
-    pointer-events: none; 
+    pointer-events: none;
   }
 
   .inner-border {
@@ -144,6 +190,7 @@
     gap: 2px;
     border: 2px solid var(--black);
     padding: 4px;
+    background: var(--white);
   }
 
   .window { border: 1px solid var(--black); }
@@ -163,6 +210,7 @@
     border: 2px solid var(--black);
     padding: 10px;
     font-size: 12px;
+    background: var(--white);
   }
 
   .days-row {
@@ -185,7 +233,6 @@
 
 <div class="cabinet">
 
-  <!-- Папка 1 -->
   <div class="folder" id="folder1">
     <div class="tab">DESIGNER</div>
     <div class="paper"><div class="inner-border">
@@ -207,18 +254,13 @@
           <div class="small-label">SHOWROOM HOURS</div>
           <div class="showroom-hours">
             <div>OPEN:</div>
-            <div class="days-row">
-              <div class="circle"></div> MON 
-              <div class="circle filled"></div> WED 
-              <div class="circle filled"></div> FRI
-            </div>
+            <div class="days-row"><div class="circle"></div> MON <div class="circle filled"></div> WED <div class="circle filled"></div> FRI</div>
           </div>
         </div>
       </div>
     </div></div>
   </div>
 
-  <!-- Папка 2 -->
   <div class="folder" id="folder2">
     <div class="tab">JEWELRY</div>
     <div class="paper"><div class="inner-border">
@@ -231,7 +273,6 @@
     </div></div>
   </div>
 
-  <!-- Папка 3 -->
   <div class="folder" id="folder3">
     <div class="tab">VINTAGE</div>
     <div class="paper"><div class="inner-border">
@@ -244,7 +285,6 @@
     </div></div>
   </div>
 
-  <!-- Папка 4 -->
   <div class="folder" id="folder4">
     <div class="tab">COFFEE</div>
     <div class="paper"><div class="inner-border">
@@ -257,7 +297,6 @@
     </div></div>
   </div>
 
-  <!-- Главная Папка (Самая верхняя) -->
   <div class="folder" id="folder5">
     <div class="tab">___494___</div>
     <div class="paper"><div class="inner-border">
@@ -279,15 +318,17 @@
           <div class="small-label">SHOWROOM HOURS</div>
           <div class="showroom-hours">
             <div>OPEN:</div>
-            <div class="days-row">
-              <div class="circle"></div> MON 
-              <div class="circle filled"></div> WED 
-              <div class="circle filled"></div> FRI
-            </div>
+            <div class="days-row"><div class="circle"></div> MON <div class="circle filled"></div> WED <div class="circle filled"></div> FRI</div>
           </div>
         </div>
       </div>
     </div></div>
+  </div>
+
+  <div class="cabinet-front">
+    <div class="drawer-handle">
+      <div></div><div></div><div></div>
+    </div>
   </div>
 
 </div>
