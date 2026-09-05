@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JEDI — Trainer Info</title>
-  <!-- Шрифты: Space Mono для акцидентных заголовков и Inter для интерфейсного текста -->
+  <title>Portfolio — Brand Identity & Design Systems</title>
+  <!-- Шрифты: Space Mono (акцентный нео-брутализм) и Inter (читаемый интерфейс) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -13,14 +13,15 @@
 
   <style>
     :root {
-      --bg-outer: #f6a282; /* Фоновый градиент подложки страницы */
-      --bg-sidebar: #a8d5ba; /* Пастельно-зеленый оттенок темы JEDI */
-      --bg-main: #fcf6e9; /* Светло-кремовый фон контентной зоны */
-      --card-yellow: #f8c953; /* Желтый блок тренера */
-      --card-pink: #f7bdf7; /* Розовый блок рейтинга */
+      --bg-outer: #f6a282;
+      --bg-sidebar: #a8d5ba;
+      --bg-main: #fcf6e9;
+      --card-yellow: #f8c953;
+      --card-pink: #f7bdf7;
       --card-white: #ffffff;
-      --border-dark: #121212; /* Фирменная жесткая обводка Neo-Brutalism */
-      --shadow-brutal: 3px 3px 0px #121212;
+      --border-dark: #121212;
+      --shadow-brutal: 4px 4px 0px #121212;
+      --shadow-brutal-sm: 2px 2px 0px #121212;
       --font-mono: 'Space Mono', monospace;
       --font-sans: 'Inter', -apple-system, sans-serif;
     }
@@ -29,11 +30,12 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
     }
 
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #66b5ff 0%, #66b5ff 30%, #f6a282 30%, #f6a282 100%);
+      background: linear-gradient(135deg, #66b5ff 0%, #66b5ff 32%, #f6a282 32%, #f6a282 100%);
       font-family: var(--font-sans);
       color: var(--border-dark);
       display: flex;
@@ -42,23 +44,23 @@
       padding: 24px;
     }
 
-    /* ОСНОВНОЙ КОНТЕЙНЕР ПЛАТФОРМЫ */
+    /* ОСНОВНОЙ КОНТЕЙНЕР */
     .dashboard-window {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1140px;
       background-color: var(--bg-sidebar);
-      border: 2px solid var(--border-dark);
-      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+      border: 3px solid var(--border-dark);
+      box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.35);
       display: flex;
-      border-radius: 0;
       min-height: 740px;
+      position: relative;
     }
 
-    /* ЛЕВАЯ КОЛОНКА (САЙДБАР) */
+    /* САЙДБАР */
     .sidebar {
-      width: 190px;
+      width: 200px;
       flex-shrink: 0;
-      padding: 20px 14px;
+      padding: 24px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -71,65 +73,85 @@
       font-family: var(--font-mono);
       font-weight: 700;
       font-size: 20px;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+      margin-bottom: 32px;
+      cursor: pointer;
     }
 
     .brand-badge {
       border: 2px solid var(--border-dark);
       background: #fff;
-      padding: 2px 5px;
+      padding: 3px 6px;
       font-size: 13px;
       font-weight: 700;
-      line-height: 1;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
     .nav-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .nav-item a {
+    .nav-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 7px 12px;
+      padding: 10px 14px;
       text-decoration: none;
       color: var(--border-dark);
-      font-size: 12px;
-      font-weight: 600;
-      transition: background 0.15s;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: transparent;
+      width: 100%;
+      text-align: left;
     }
 
-    .nav-item.active a {
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: var(--border-dark);
+    }
+
+    .nav-item.active {
       background-color: var(--border-dark);
       color: #fff;
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal-sm);
+      transform: translate(-2px, -2px);
     }
 
-    .nav-item a i {
-      font-size: 14px;
+    .nav-item i {
+      font-size: 16px;
     }
 
-    .sidebar-bottom {
-      margin-top: auto;
+    .sidebar-footer {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: #2b4435;
+      line-height: 1.4;
+      border-top: 2px dashed var(--border-dark);
+      padding-top: 14px;
     }
 
-    /* ПРАВАЯ ОБЛАСТЬ (КОНТЕНТ) */
+    /* ОСНОВНАЯ РАБОЧАЯ ОБЛАСТЬ */
     .main-canvas {
       flex: 1;
       background-color: var(--bg-main);
-      border-left: 2px solid var(--border-dark);
-      margin: 12px 12px 12px 0;
-      border: 2px solid var(--border-dark);
-      padding: 16px 20px 24px;
+      border: 3px solid var(--border-dark);
+      margin: 14px 14px 14px 0;
+      padding: 20px 24px 28px;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      overflow-y: auto;
+      max-height: 800px;
     }
 
-    /* ШАПКА ВНУТРИ КОНТЕНТА */
+    /* ВЕРХНЯЯ СТРОКА ПОИСКА И ДЕЙСТВИЙ */
     .content-header {
       display: flex;
       justify-content: space-between;
@@ -138,15 +160,22 @@
     }
 
     .btn-square {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border: 2px solid var(--border-dark);
       background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
+      box-shadow: var(--shadow-brutal-sm);
+      transition: transform 0.1s;
+    }
+
+    .btn-square:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
     }
 
     .header-right {
@@ -165,40 +194,70 @@
       border: 2px solid var(--border-dark);
       padding: 4px 12px;
       width: 100%;
-      max-width: 270px;
-      height: 32px;
+      max-width: 280px;
+      height: 34px;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
     .search-bar input {
       border: none;
       outline: none;
       background: transparent;
-      font-size: 11px;
+      font-size: 11.5px;
       width: 100%;
       font-family: var(--font-sans);
-      color: #777;
+      color: #121212;
     }
 
-    .user-avatar {
-      width: 30px;
-      height: 30px;
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: #c3e88d;
       border: 2px solid var(--border-dark);
-      overflow: hidden;
+      padding: 6px 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
-    .user-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #00aa44;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
     }
 
-    /* ЗАГОЛОВКИ СЕКЦИЙ */
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    /* СЕКЦИИ ВКЛАДОК */
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .section-title {
       font-family: var(--font-mono);
       font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      margin-bottom: 12px;
     }
 
     .sub-title {
@@ -208,90 +267,99 @@
       margin-bottom: 12px;
     }
 
-    /* СЕТКА ТРЕНЕРА И ОПЫТА РАБОТЫ */
-    .trainer-experience-grid {
+    /* === ВКЛАДКА 1: ОБО МНЕ === */
+    .designer-experience-grid {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 16px;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 18px;
       align-items: start;
     }
 
-    /* КАРТОЧКА ТРЕНЕРА (ЖЕЛТАЯ) */
-    .trainer-card {
+    .designer-card {
       background-color: var(--card-yellow);
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal);
-      padding: 16px;
+      padding: 18px;
       display: flex;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .trainer-photo-wrap {
-      width: 130px;
-      height: 160px;
+    .designer-photo-wrap {
+      width: 140px;
+      height: 175px;
       border: 2px solid var(--border-dark);
-      background: #fff;
+      background: #111;
       overflow: hidden;
       flex-shrink: 0;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
-    .trainer-photo-wrap img {
+    .designer-photo-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: grayscale(100%) contrast(110%);
     }
 
-    .trainer-info-body {
+    .designer-info-body {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .trainer-top-meta {
+    .designer-top-meta {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      margin-bottom: 8px;
     }
 
-    .trainer-name {
-      font-size: 19px;
+    .designer-name {
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.1;
     }
 
-    .trainer-email {
+    .designer-specialty {
       font-size: 11px;
+      font-family: var(--font-mono);
       color: #333;
-      margin-top: 2px;
-      margin-bottom: 12px;
+      margin-top: 3px;
     }
 
     .social-links {
       display: flex;
-      gap: 4px;
+      gap: 5px;
     }
 
     .social-icon {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border: 1.5px solid var(--border-dark);
       background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 13px;
       text-decoration: none;
       color: var(--border-dark);
+      box-shadow: 1.5px 1.5px 0px #121212;
+      transition: transform 0.1s;
     }
 
-    /* СТАТИСТИКА 4 КВАДРАТА */
+    .social-icon:active {
+      transform: translate(1px, 1px);
+      box-shadow: none;
+    }
+
     .stats-matrix {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      border: 1.5px solid var(--border-dark);
+      border: 2px solid var(--border-dark);
       background: #fff;
-      margin-bottom: 12px;
+      margin: 10px 0 12px;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
     .stat-box {
@@ -308,59 +376,65 @@
     .stat-num {
       font-size: 12px;
       font-weight: 700;
-      line-height: 1;
+      font-family: var(--font-mono);
     }
 
     .stat-label {
       font-size: 8.5px;
-      color: #444;
+      color: #333;
       margin-top: 2px;
-      white-space: nowrap;
+      text-transform: lowercase;
     }
 
-    .trainer-bio {
-      font-size: 10.5px;
-      line-height: 1.35;
-      color: #222;
+    .designer-bio {
+      font-size: 11px;
+      line-height: 1.4;
+      color: #1a1a1a;
       margin-bottom: 14px;
     }
 
-    .trainer-actions {
+    .designer-actions {
       display: flex;
       gap: 8px;
     }
 
-    .btn-request {
-      flex: 1.3;
-      background-color: var(--border-dark);
-      color: #fff;
-      border: 1.5px solid var(--border-dark);
-      padding: 6px 10px;
-      font-size: 10.5px;
-      font-weight: 600;
+    .btn-brutal {
+      border: 2px solid var(--border-dark);
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-mono);
       cursor: pointer;
+      box-shadow: var(--shadow-brutal-sm);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: all 0.1s;
     }
 
-    .btn-portfolio {
-      flex: 1;
-      background-color: #fff;
+    .btn-brutal:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+
+    .btn-dark {
+      background: var(--border-dark);
+      color: #fff;
+      flex: 1.2;
+    }
+
+    .btn-white {
+      background: #fff;
       color: var(--border-dark);
-      border: 1.5px solid var(--border-dark);
-      padding: 6px 10px;
-      font-size: 10.5px;
-      font-weight: 600;
-      cursor: pointer;
+      flex: 1;
     }
 
-    /* ОПЫТ РАБОТЫ (ПРАВЫЙ СПИСОК) */
+    /* СПИСОК ОПЫТА РАБОТЫ */
     .experience-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .experience-item {
@@ -371,51 +445,49 @@
       display: flex;
       gap: 12px;
       align-items: flex-start;
+      transition: transform 0.15s;
+    }
+
+    .experience-item:hover {
+      transform: translate(-2px, -2px);
     }
 
     .exp-icon {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border: 1.5px solid var(--border-dark);
+      background: #f7bdf7;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 13px;
       flex-shrink: 0;
-      margin-top: 2px;
+      box-shadow: 1.5px 1.5px 0px #121212;
     }
 
     .exp-body h4 {
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
-      margin-bottom: 1px;
     }
 
     .exp-body .exp-company {
-      font-size: 10px;
+      font-size: 10.5px;
       color: #333;
+      font-weight: 500;
     }
 
     .exp-body .exp-date {
       font-size: 9.5px;
       color: #666;
+      font-family: var(--font-mono);
     }
 
-    /* НИЖНЯЯ СЕКЦИЯ (ОТЗЫВЫ) */
+    /* ОТЗЫВЫ КЛИЕНТОВ */
     .reviews-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .btn-view-all {
-      border: 1.5px solid var(--border-dark);
-      background: #fff;
-      padding: 2px 10px;
-      font-size: 10px;
-      font-weight: 600;
-      cursor: pointer;
+      margin-top: 6px;
     }
 
     .reviews-grid {
@@ -424,7 +496,6 @@
       gap: 12px;
     }
 
-    /* РОЗОВАЯ КАРТОЧКА СТАТИСТИКИ */
     .rating-stat-card {
       background-color: var(--card-pink);
       border: 2px solid var(--border-dark);
@@ -439,25 +510,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1.5px solid var(--border-dark);
+      border-bottom: 2px solid var(--border-dark);
       padding-bottom: 8px;
     }
 
     .rating-score {
       font-size: 18px;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .btn-stats {
-      border: 1.5px solid var(--border-dark);
-      background: #fff;
-      font-size: 9px;
-      font-weight: 600;
-      padding: 2px 6px;
-      cursor: pointer;
+      font-family: var(--font-mono);
     }
 
     .rating-bottom {
@@ -468,22 +528,22 @@
     }
 
     .rates-count {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      line-height: 1.1;
+      font-family: var(--font-mono);
+      line-height: 1;
     }
 
     .rates-caption {
       font-size: 9px;
-      color: #333;
+      color: #222;
     }
 
     .svg-chart {
-      width: 100px;
-      height: 36px;
+      width: 95px;
+      height: 34px;
     }
 
-    /* КАРТОЧКИ ОТЗЫВОВ СТУДЕНТОВ */
     .review-card {
       background: var(--card-white);
       border: 2px solid var(--border-dark);
@@ -514,15 +574,276 @@
     .reviewer-score {
       font-size: 10px;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 2px;
+      font-family: var(--font-mono);
     }
 
     .review-text {
       font-size: 9.5px;
       line-height: 1.35;
       color: #333;
+    }
+
+    /* === ВКЛАДКА 2: РАБОТЫ === */
+    .works-filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .filter-btn {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-brutal-sm);
+    }
+
+    .filter-btn.active {
+      background: var(--border-dark);
+      color: #fff;
+    }
+
+    .works-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .work-item-card {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .work-item-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0px var(--border-dark);
+    }
+
+    .work-thumbnail {
+      width: 100%;
+      height: 160px;
+      border-bottom: 2px solid var(--border-dark);
+      overflow: hidden;
+      background: #111;
+      position: relative;
+    }
+
+    .work-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .work-item-card:hover .work-thumbnail img {
+      transform: scale(1.05);
+    }
+
+    .work-tag {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--card-yellow);
+      border: 1.5px solid var(--border-dark);
+      padding: 2px 6px;
+      font-size: 9px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .work-details {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .work-title {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .work-desc {
+      font-size: 10.5px;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    /* === ВКЛАДКА 3: КОНТАКТЫ === */
+    .contacts-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .contact-info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-card-box {
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 14px;
+    }
+
+    .contact-card-box h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .contact-card-box p {
+      font-size: 11px;
+      color: #444;
+      line-height: 1.4;
+    }
+
+    .channel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--border-dark);
+      text-decoration: none;
+      padding: 6px 10px;
+      border: 1.5px solid var(--border-dark);
+      background: var(--bg-main);
+      box-shadow: var(--shadow-brutal-sm);
+    }
+
+    .channel-item:hover {
+      background: #fff;
+    }
+
+    .contact-form-card {
+      background: var(--card-yellow);
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      padding: 8px 10px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      outline: none;
+      width: 100%;
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* МОДАЛЬНОЕ ОКНО ПРОЕКТА */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-window {
+      background: var(--bg-main);
+      border: 3px solid var(--border-dark);
+      box-shadow: 8px 8px 0px var(--border-dark);
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: modalPop 0.2s ease-out;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 8px;
+    }
+
+    .modal-header h3 {
+      font-family: var(--font-mono);
+      font-size: 16px;
+    }
+
+    /* УВЕДОМЛЕНИЕ (TOAST) */
+    .toast-alert {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #121212;
+      color: #fff;
+      border: 2px solid #fff;
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+      animation: toastIn 0.3s ease-out;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     /* АДАПТИВНОСТЬ */
@@ -532,22 +853,39 @@
       }
       .sidebar {
         width: 100%;
+        border-bottom: 3px solid var(--border-dark);
       }
-      .trainer-experience-grid {
+      .nav-list {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+      .main-canvas {
+        margin: 12px;
+      }
+      .designer-experience-grid,
+      .contacts-layout {
         grid-template-columns: 1fr;
       }
       .reviews-grid {
         grid-template-columns: 1fr 1fr;
       }
+      .works-gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
-    @media (max-width: 600px) {
-      .reviews-grid {
+    @media (max-width: 620px) {
+      .reviews-grid,
+      .works-gallery-grid {
         grid-template-columns: 1fr;
       }
-      .trainer-card {
+      .designer-card {
         flex-direction: column;
         align-items: center;
+      }
+      .designer-photo-wrap {
+        width: 100%;
+        height: 200px;
       }
     }
   </style>
@@ -556,241 +894,499 @@
 
   <div class="dashboard-window">
     
-    <!-- САЙДБАР С НАВИГАЦИЕЙ -->
+    <!-- САЙДБАР: НАВИГАЦИЯ -->
     <aside class="sidebar">
-      <div class="sidebar-top">
-        <div class="brand-logo">
-          <span class="brand-badge">&lt;/&gt;</span> JEDI
+      <div>
+        <div class="brand-logo" onclick="switchTab('about')">
+          <span class="brand-badge">&lt;/&gt;</span> DESIGN
         </div>
+        
         <ul class="nav-list">
-          <li class="nav-item">
-            <a href="#"><i class="ri-home-4-line"></i> Home</a>
+          <li>
+            <button class="nav-item active" data-tab="about" onclick="switchTab('about')">
+              <i class="ri-user-smile-line"></i> Обо мне
+            </button>
           </li>
-          <li class="nav-item">
-            <a href="#"><i class="ri-calendar-line"></i> Schedule</a>
+          <li>
+            <button class="nav-item" data-tab="works" onclick="switchTab('works')">
+              <i class="ri-layout-masonry-line"></i> Работы
+            </button>
           </li>
-          <li class="nav-item active">
-            <a href="#"><i class="ri-graduation-cap-fill"></i> Trainers</a>
-          </li>
-          <li class="nav-item">
-            <a href="#"><i class="ri-shield-check-line"></i> Policy Library</a>
-          </li>
-          <li class="nav-item">
-            <a href="#"><i class="ri-settings-4-line"></i> Preferences</a>
-          </li>
-          <li class="nav-item">
-            <a href="#"><i class="ri-logout-box-r-line"></i> Log out</a>
+          <li>
+            <button class="nav-item" data-tab="contacts" onclick="switchTab('contacts')">
+              <i class="ri-mail-send-line"></i> Контакты
+            </button>
           </li>
         </ul>
       </div>
 
-      <div class="sidebar-bottom">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="#"><i class="ri-settings-4-line"></i> Preferences</a>
-          </li>
-          <li class="nav-item">
-            <a href="#"><i class="ri-logout-box-r-line"></i> Log out</a>
-          </li>
-        </ul>
+      <div class="sidebar-footer">
+        <div>● BRAND IDENTITY</div>
+        <div>● DESIGN SYSTEMS</div>
+        <div style="margin-top: 6px; color: #1a2f23;">© 2026 Studio</div>
       </div>
     </aside>
 
-    <!-- ОСНОВНАЯ ЧАСТЬ ЭКРАНА -->
+    <!-- ОСНОВНАЯ РАБОЧАЯ ПАНЕЛЬ -->
     <main class="main-canvas">
       
-      <!-- ШАПКА -->
+      <!-- ВЕРХНИЙ ТУЛБАР -->
       <div class="content-header">
-        <button class="btn-square" aria-label="Go back">
+        <button class="btn-square" onclick="navigateHistory(-1)" title="Назад">
           <i class="ri-arrow-left-line"></i>
         </button>
+
         <div class="header-right">
           <div class="search-bar">
             <i class="ri-search-line" style="font-size: 13px; color: #555;"></i>
-            <input type="text" placeholder="Find courses, trainers, etc.">
+            <input type="text" id="searchInput" placeholder="Поиск кейсов, айдентики..." oninput="handleSearch(this.value)">
           </div>
-          <button class="btn-square" aria-label="Notifications">
+
+          <div class="status-pill">
+            <span class="status-dot"></span> OPEN FOR PROJECTS
+          </div>
+
+          <button class="btn-square" onclick="showToast('Уведомлений нет. Все системы работают в штатном режиме!')" title="Уведомления">
             <i class="ri-notification-3-line"></i>
           </button>
-          <div class="user-avatar">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80" alt="User Profile">
-          </div>
         </div>
       </div>
 
-      <!-- ВЕРХНИЙ БЛОК: ТРЕНЕР И ОПЫТ РАБОТЫ -->
-      <div class="trainer-experience-grid">
+      <!-- ==================== ВКЛАДКА 1: ОБО МНЕ ==================== -->
+      <section id="tab-about" class="tab-content active">
         
-        <!-- КОЛОНКА ТРЕНЕРА -->
-        <div>
-          <h2 class="section-title">Trainer info</h2>
-          <div class="trainer-card">
-            <div class="trainer-photo-wrap">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Hillary Bale">
+        <div class="designer-experience-grid">
+          <!-- ГЛАВНАЯ КАРТОЧКА ДИЗАЙНЕРА -->
+          <div>
+            <h2 class="section-title">Designer info</h2>
+            <div class="designer-card">
+              <div class="designer-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Lead Brand Designer">
+              </div>
+              
+              <div class="designer-info-body">
+                <div class="designer-top-meta">
+                  <div>
+                    <h3 class="designer-name">Alex V. Miller</h3>
+                    <p class="designer-specialty">Brand Identity &amp; Systems</p>
+                  </div>
+                  <div class="social-links">
+                    <a href="https://behance.net" target="_blank" class="social-icon" title="Behance"><i class="ri-behance-fill"></i></a>
+                    <a href="https://dribbble.com" target="_blank" class="social-icon" title="Dribbble"><i class="ri-dribbble-line"></i></a>
+                    <a href="https://telegram.org" target="_blank" class="social-icon" title="Telegram"><i class="ri-telegram-fill"></i></a>
+                  </div>
+                </div>
+
+                <!-- МАТРИЦА ИЗ 4 ПОКАЗАТЕЛЕЙ -->
+                <div class="stats-matrix">
+                  <div class="stat-box">
+                    <div class="stat-num">8+</div>
+                    <div class="stat-label">лет опыта</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-num">50+</div>
+                    <div class="stat-label">айдентик</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-num">Топ-1%</div>
+                    <div class="stat-label">Behance</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">on-time</div>
+                  </div>
+                </div>
+
+                <p class="designer-bio">
+                  Специализируюсь на проектировании гибких дизайн-систем, типографике и лаконичной айдентике брендов, превращая концептуальные идеи в выверенные масштабируемые визуальные продукты.
+                </p>
+
+                <div class="designer-actions">
+                  <button class="btn-brutal btn-dark" onclick="switchTab('contacts')">
+                    <i class="ri-chat-smile-2-line"></i> Обсудить проект
+                  </button>
+                  <button class="btn-brutal btn-white" onclick="switchTab('works')">
+                    Портфолио
+                  </button>
+                </div>
+              </div>
             </div>
-            
-            <div class="trainer-info-body">
-              <div class="trainer-top-meta">
+          </div>
+
+          <!-- КОЛОНКА ОПЫТА И РОЛЕЙ -->
+          <div>
+            <h3 class="sub-title">Опыт и практика</h3>
+            <div class="experience-list">
+              
+              <div class="experience-item">
+                <div class="exp-icon"><i class="ri-pen-nib-fill"></i></div>
+                <div class="exp-body">
+                  <h4>Lead Brand Identity Designer</h4>
+                  <div class="exp-company">Apex Design Studio &amp; Tech</div>
+                  <div class="exp-date">2023 — Настоящее время</div>
+                </div>
+              </div>
+
+              <div class="experience-item">
+                <div class="exp-icon"><i class="ri-shapes-fill"></i></div>
+                <div class="exp-body">
+                  <h4>Senior Design Systems Architect</h4>
+                  <div class="exp-company">Vanguard Fintech Group</div>
+                  <div class="exp-date">2020 — 2023</div>
+                </div>
+              </div>
+
+              <div class="experience-item">
+                <div class="exp-icon"><i class="ri-artboard-2-line"></i></div>
+                <div class="exp-body">
+                  <h4>Visual &amp; Brand Designer</h4>
+                  <div class="exp-company">Creative Pulse Agency</div>
+                  <div class="exp-date">2017 — 2020</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ОТЗЫВЫ КЛИЕНТОВ -->
+        <div>
+          <div class="reviews-header">
+            <h2 class="section-title">Client reviews</h2>
+            <button class="btn-brutal btn-white" style="padding: 3px 10px; font-size: 10px;" onclick="showToast('Все 48 отзывов с подтвержденных проектов загружены')">
+              Смотреть все
+            </button>
+          </div>
+
+          <div class="reviews-grid" style="margin-top: 10px;">
+            <div class="rating-stat-card">
+              <div class="rating-top">
+                <div class="rating-score">★ 4.9 / 5.0</div>
+                <button class="btn-brutal btn-white" style="padding: 2px 6px; font-size: 9px;" onclick="showToast('CSAT индекс удовлетворенности клиентов: 99.2%')">Stats</button>
+              </div>
+              <div class="rating-bottom">
                 <div>
-                  <h3 class="trainer-name">Hillary Bale</h3>
-                  <p class="trainer-email">hill.bale@gmail.com</p>
+                  <div class="rates-count">48</div>
+                  <div class="rates-caption">реализованных проектов</div>
                 </div>
-                <div class="social-links">
-                  <a href="#" class="social-icon"><i class="ri-twitter-x-line"></i></a>
-                  <a href="#" class="social-icon"><i class="ri-linkedin-fill"></i></a>
-                  <a href="#" class="social-icon"><i class="ri-instagram-line"></i></a>
-                </div>
+                <svg class="svg-chart" viewBox="0 0 100 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 28 C 15 28, 20 18, 30 24 C 40 30, 48 5, 58 18 C 68 30, 75 10, 85 20 C 92 25, 95 10, 98 14" stroke="#121212" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+            </div>
 
-              <!-- МАТРИЦА 4 ПОКАЗАТЕЛЕЙ -->
-              <div class="stats-matrix">
-                <div class="stat-box">
-                  <div class="stat-num">10+</div>
-                  <div class="stat-label">experience</div>
+            <div class="review-card">
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Дмитрий С.</div>
+                  <div class="reviewer-role">CEO, Neura Cloud</div>
                 </div>
-                <div class="stat-box">
-                  <div class="stat-num">#1</div>
-                  <div class="stat-label">on platform</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num">5 ya</div>
-                  <div class="stat-label">of teaching</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num">12</div>
-                  <div class="stat-label">courses</div>
-                </div>
+                <div class="reviewer-score">★ 5.0</div>
               </div>
+              <p class="review-text">Разработанная айдентика и гайдлайн превзошли ожидания. Дизайн-система легко масштабируется под веб и мерч.</p>
+            </div>
 
-              <p class="trainer-bio">
-                I'm JavaScript trainer with over 10 years of experience in the software development industry. Passionated about teaching how to code and helping them develop their skills.
-              </p>
-
-              <div class="trainer-actions">
-                <button class="btn-request"><i class="ri-mic-line"></i> Request session</button>
-                <button class="btn-portfolio">Portfolio</button>
+            <div class="review-card">
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Анна В.</div>
+                  <div class="reviewer-role">Art Director, Pulse</div>
+                </div>
+                <div class="reviewer-score">★ 4.9</div>
               </div>
+              <p class="review-text">Филигранная работа с типографикой и швейцарской модульной сеткой. Стиль и подача на уровне лучших работ Behance.</p>
+            </div>
+
+            <div class="review-card">
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Марк Т.</div>
+                  <div class="reviewer-role">Founder, Kinetix</div>
+                </div>
+                <div class="reviewer-score">★ 5.0</div>
+              </div>
+              <p class="review-text">Быстро, концептуально и с глубоким пониманием бизнес-задач. Помог полностью пересобрать визуальный образ бренда.</p>
             </div>
           </div>
         </div>
 
-        <!-- КОЛОНКА ОПЫТА РАБОТЫ -->
-        <div>
-          <h3 class="sub-title">Work experience</h3>
-          <div class="experience-list">
-            
-            <div class="experience-item">
-              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
-              <div class="exp-body">
-                <h4>Senior JavaScript Developer</h4>
-                <div class="exp-company">Firecracker Inc.</div>
-                <div class="exp-date">May 2022 – present</div>
-              </div>
-            </div>
+      </section>
 
-            <div class="experience-item">
-              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
-              <div class="exp-body">
-                <h4>Senior JavaScript Developer</h4>
-                <div class="exp-company">Pro Property Maintenance</div>
-                <div class="exp-date">May 2013 – Nov 2022</div>
-              </div>
-            </div>
-
-            <div class="experience-item">
-              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
-              <div class="exp-body">
-                <h4>Middle JavaScript Developer</h4>
-                <div class="exp-company">Cut Rite Lawn Care</div>
-                <div class="exp-date">May 2012 – Nov 2013</div>
-              </div>
-            </div>
-
+      <!-- ==================== ВКЛАДКА 2: РАБОТЫ ==================== -->
+      <section id="tab-works" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <h2 class="section-title">Selected Works</h2>
+            <p style="font-size: 11.5px; color: #555;">Избранные кейсы по айдентике, визуальным системам и упаковке</p>
           </div>
-        </div>
-
-      </div>
-
-      <!-- НИЖНИЙ БЛОК: СТУДЕНЧЕСКИЕ ОТЗЫВЫ -->
-      <div>
-        <div class="reviews-header">
-          <h2 class="section-title" style="margin-bottom: 0;">Students reviews</h2>
-          <button class="btn-view-all">View all</button>
-        </div>
-
-        <div class="reviews-grid">
           
-          <!-- РОЗОВАЯ КАРТОЧКА РЕЙТИНГА СО СТАТИСТИКОЙ -->
-          <div class="rating-stat-card">
-            <div class="rating-top">
-              <div class="rating-score">★ 4.4 / 5.0</div>
-              <button class="btn-stats">See stats</button>
+          <div class="works-filter-bar">
+            <button class="filter-btn active" onclick="filterWorks('all', this)">Все (6)</button>
+            <button class="filter-btn" onclick="filterWorks('identity', this)">Айдентика</button>
+            <button class="filter-btn" onclick="filterWorks('systems', this)">Дизайн-системы</button>
+            <button class="filter-btn" onclick="filterWorks('packaging', this)">Упаковка</button>
+          </div>
+        </div>
+
+        <div class="works-gallery-grid" id="worksGrid">
+          
+          <!-- Проект 1 -->
+          <div class="work-item-card" data-category="identity" onclick="openModal('Monochrome Rebranding', 'Комплексный ребрендинг финансового холдинга: модульный логотип, строгая шрифтовая пара и полный комплект брендбука.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Work 1">
+              <span class="work-tag">Identity</span>
             </div>
-            <div class="rating-bottom">
-              <div>
-                <div class="rates-count">127</div>
-                <div class="rates-caption">rates from students</div>
-              </div>
-              <!-- Волнообразный график в Neo-brutalism стиле -->
-              <svg class="svg-chart" viewBox="0 0 100 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 28 C 15 28, 20 18, 30 24 C 40 30, 48 5, 58 20 C 68 35, 75 12, 85 24 C 92 30, 95 15, 98 22" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div class="work-details">
+              <div class="work-title">Aethel Brand &amp; Digital</div>
+              <div class="work-desc">Айдентика бренда в минималистичном строгом стиле с генеративной графикой.</div>
             </div>
           </div>
 
-          <!-- ОТЗЫВ 1 -->
-          <div class="review-card">
-            <div>
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Nicol W.</div>
-                  <div class="reviewer-role">Junior JavaScript Dev.</div>
-                </div>
-                <div class="reviewer-score">☆ 4.6</div>
-              </div>
-              <p class="review-text">
-                The progress I have made since starting to use is immense! I can study for short periods or long periods at my own convenience - mostly late in the evenings.
-              </p>
+          <!-- Проект 2 -->
+          <div class="work-item-card" data-category="packaging" onclick="openModal('L’Imperatrice Packaging', 'Дизайн премиальной парфюмерной линейки: работа со сложными фактурами тиснения, стеклом и минималистичной версткой.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Work 2">
+              <span class="work-tag">Packaging</span>
+            </div>
+            <div class="work-details">
+              <div class="work-title">L’Imperatrice Essence</div>
+              <div class="work-desc">Премиальная упаковка ароматов и акцидентная шрифтовая айдентика.</div>
             </div>
           </div>
 
-          <!-- ОТЗЫВ 2 -->
-          <div class="review-card">
-            <div>
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Stephanie N.</div>
-                  <div class="reviewer-role">Middle JavaScript Dev.</div>
-                </div>
-                <div class="reviewer-score">☆ 4.7</div>
-              </div>
-              <p class="review-text">
-                I felt like I learned months in a week. I love how she uses learning by practice and gives great challenges to help the learner to understand a new concept and subject.
-              </p>
+          <!-- Проект 3 -->
+          <div class="work-item-card" data-category="systems" onclick="openModal('Krypton Design System', 'Масштабируемая дизайн-система с токенами цвета, сетками верстки и стандартизированными визуальными компонентами.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80" alt="Work 3">
+              <span class="work-tag">Systems</span>
+            </div>
+            <div class="work-details">
+              <div class="work-title">Krypton UI/Design System</div>
+              <div class="work-desc">Глобальная система правил и компонентов для экосистемы финтех-продуктов.</div>
             </div>
           </div>
 
-          <!-- ОТЗЫВ 3 -->
-          <div class="review-card">
-            <div>
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Vane F.</div>
-                  <div class="reviewer-role">Junior JavaScript Dev.</div>
-                </div>
-                <div class="reviewer-score">☆ 4.3</div>
-              </div>
-              <p class="review-text">
-                Brilliant learning experience. Very interactive. Literally a game changer if you're learning mostly late in the evenings. I love how she uses learning by practice.
-              </p>
+          <!-- Проект 4 -->
+          <div class="work-item-card" data-category="packaging" onclick="openModal('Organic Puffs Concept', 'Концепт крафтовой упаковки для снеков: яркий акцентный контраст и уникальные графические паттерны.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" alt="Work 4">
+              <span class="work-tag">Packaging</span>
+            </div>
+            <div class="work-details">
+              <div class="work-title">Sweet Puffs Series</div>
+              <div class="work-desc">Дизайн упаковки и мерча для серии органических продуктов питания.</div>
+            </div>
+          </div>
+
+          <!-- Проект 5 -->
+          <div class="work-item-card" data-category="identity" onclick="openModal('Nordic Identity Identity', 'Айдентика архитектурного бюро на основе чистой швейцарской сетки и лаконичной графики.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Work 5">
+              <span class="work-tag">Identity</span>
+            </div>
+            <div class="work-details">
+              <div class="work-title">Nordic Architecture</div>
+              <div class="work-desc">Модульный фирменный стиль, печатная продукция и навигация в интерьере.</div>
+            </div>
+          </div>
+
+          <!-- Проект 6 -->
+          <div class="work-item-card" data-category="systems" onclick="openModal('Cosmetic Care Tokens', 'Разработка бренд-стандартов и руководства по стилю для международной бьюти-марки.')">
+            <div class="work-thumbnail">
+              <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Work 6">
+              <span class="work-tag">Systems</span>
+            </div>
+            <div class="work-details">
+              <div class="work-title">Botanica Brand Guidelines</div>
+              <div class="work-desc">Полный брендбук и систематизация графических констант бренда.</div>
             </div>
           </div>
 
         </div>
-      </div>
+      </section>
+
+      <!-- ==================== ВКЛАДКА 3: КОНТАКТЫ ==================== -->
+      <section id="tab-contacts" class="tab-content">
+        <div>
+          <h2 class="section-title">Get in Touch</h2>
+          <p style="font-size: 11.5px; color: #555;">Готов к новым вызовам, разработке айдентики и дизайн-систем для ваших продуктов</p>
+        </div>
+
+        <div class="contacts-layout">
+          
+          <div class="contact-info-panel">
+            <div class="contact-card-box">
+              <h3>Прямые контакты</h3>
+              <p>Отвечаю на сообщения в течение рабочего дня. Предпочитаемый формат связи — Telegram или почта.</p>
+              
+              <div class="channel-list">
+                <a href="mailto:alex.miller.design@gmail.com" class="channel-item">
+                  <i class="ri-mail-line"></i> alex.miller.design@gmail.com
+                </a>
+                <a href="https://t.me/" target="_blank" class="channel-item">
+                  <i class="ri-telegram-line"></i> @alex_miller_design
+                </a>
+                <div class="channel-item" style="cursor: default;">
+                  <i class="ri-map-pin-line"></i> Москва / Remote (UTC+3)
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card-box" style="background: var(--card-pink);">
+              <h3>Сотрудничество</h3>
+              <p style="font-size: 10.5px; color: #111;">
+                ✓ Разработка айдентики под ключ<br>
+                ✓ Проектирование дизайн-систем<br>
+                ✓ Редизайн и репозиционирование<br>
+                ✓ Оформление презентаций и брендбуков
+              </p>
+            </div>
+          </div>
+
+          <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
+          <div class="contact-form-card">
+            <h3 style="font-family: var(--font-mono); font-size: 16px;">Отправить бриф</h3>
+            
+            <form onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label>Ваше имя / Компания</label>
+                <input type="text" required placeholder="Например: Иван (Pulse Inc.)">
+              </div>
+
+              <div class="form-group" style="margin-top: 8px;">
+                <label>Email или Telegram для связи</label>
+                <input type="text" required placeholder="@username или email@domain.com">
+              </div>
+
+              <div class="form-group" style="margin-top: 8px;">
+                <label>Опишите задачу</label>
+                <textarea required placeholder="Какой проект планируете запустить? Сроки, задачи, пожелания..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-brutal btn-dark" style="width: 100%; margin-top: 14px; padding: 10px;">
+                <i class="ri-send-plane-fill"></i> Отправить сообщение
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </section>
 
     </main>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА ПРОЕКТА -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+      <div class="modal-window" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3 id="modalTitle">Project Title</h3>
+          <button class="btn-square" style="width: 26px; height: 26px; font-size: 13px;" onclick="closeModal()">✕</button>
+        </div>
+        <p id="modalDescription" style="font-size: 11.5px; line-height: 1.5; color: #222;"></p>
+        <div style="background: var(--card-yellow); padding: 8px 12px; border: 1.5px solid var(--border-dark); font-size: 10.5px; font-family: var(--font-mono);">
+          ⚡ Стек: Figma, Adobe Illustrator, Design Tokens, Grid Systems
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px;">
+          <button class="btn-brutal btn-dark" onclick="closeModal(); switchTab('contacts');">Обсудить аналогичный кейс</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <!-- ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ -->
+  <div class="toast-alert" id="toastBox">
+    <i class="ri-checkbox-circle-fill" style="color: #c3e88d; font-size: 16px;"></i>
+    <span id="toastMsg">Уведомление</span>
+  </div>
+
+  <!-- ИНТЕРАКТИВНЫЕ СКРИПТЫ -->
+  <script>
+    let tabHistory = ['about'];
+
+    // Переключение вкладок
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+      const activeTab = document.getElementById(`tab-${tabId}`);
+      const activeBtn = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
+
+      if (activeTab) activeTab.classList.add('active');
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tabHistory[tabHistory.length - 1] !== tabId) {
+        tabHistory.push(tabId);
+      }
+    }
+
+    // Кнопка «Назад»
+    function navigateHistory(step) {
+      if (tabHistory.length > 1) {
+        tabHistory.pop();
+        const prevTab = tabHistory[tabHistory.length - 1];
+        switchTab(prevTab);
+      } else {
+        showToast('Вы находитесь на начальной странице');
+      }
+    }
+
+    // Фильтрация кейсов
+    function filterWorks(category, buttonElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      buttonElement.classList.add('active');
+
+      const cards = document.querySelectorAll('.work-item-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Поиск по проектам
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        document.querySelectorAll('.work-item-card').forEach(c => c.style.display = 'flex');
+        return;
+      }
+      
+      switchTab('works');
+      document.querySelectorAll('.work-item-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    // Открытие и закрытие модалки
+    function openModal(title, desc) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDescription').innerText = desc;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    // Отправка формы
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      showToast('✓ Сообщение успешно отправлено! Свяжусь с вами в ближайшее время.');
+      event.target.reset();
+    }
+
+    // Вызов уведомления (Toast)
+    function showToast(text) {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastMsg').innerText = text;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+  </script>
 </body>
 </html>
