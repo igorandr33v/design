@@ -1,544 +1,796 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STUDIO X — We Craft Human-Centric Digital Products</title>
+  <title>JEDI — Trainer Info</title>
+  <!-- Шрифты: Space Mono для акцидентных заголовков и Inter для интерфейсного текста -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Иконки Remix Icon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
   <style>
     :root {
-      --bg-color: #0b0b0b;
-      --card-bg: #141414;
-      --text-main: #f5f5f7;
-      --text-muted: #88888b;
-      --accent-orange: #ff5429;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-outer: #f6a282; /* Фоновый градиент подложки страницы */
+      --bg-sidebar: #a8d5ba; /* Пастельно-зеленый оттенок темы JEDI */
+      --bg-main: #fcf6e9; /* Светло-кремовый фон контентной зоны */
+      --card-yellow: #f8c953; /* Желтый блок тренера */
+      --card-pink: #f7bdf7; /* Розовый блок рейтинга */
+      --card-white: #ffffff;
+      --border-dark: #121212; /* Фирменная жесткая обводка Neo-Brutalism */
+      --shadow-brutal: 3px 3px 0px #121212;
+      --font-mono: 'Space Mono', monospace;
+      --font-sans: 'Inter', -apple-system, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: var(--font-family);
-      line-height: 1.5;
-      overflow-x: hidden;
-      padding-bottom: 80px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-
-    a:hover {
-      opacity: 0.7;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* HEADER */
-    header {
-      padding: 36px 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #66b5ff 0%, #66b5ff 30%, #f6a282 30%, #f6a282 100%);
+      font-family: var(--font-sans);
+      color: var(--border-dark);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      padding: 24px;
+    }
+
+    /* ОСНОВНОЙ КОНТЕЙНЕР ПЛАТФОРМЫ */
+    .dashboard-window {
+      width: 100%;
+      max-width: 1120px;
+      background-color: var(--bg-sidebar);
+      border: 2px solid var(--border-dark);
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+      display: flex;
+      border-radius: 0;
+      min-height: 740px;
+    }
+
+    /* ЛЕВАЯ КОЛОНКА (САЙДБАР) */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .brand-logo {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-main);
-    }
-
-    .menu-btn {
       display: flex;
-      gap: 3px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
     }
 
-    .menu-btn span {
-      display: block;
-      width: 1.5px;
-      height: 16px;
-      background-color: var(--text-main);
-    }
-
-    /* HERO */
-    .hero {
-      padding: 40px 0 80px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 48px;
-      align-items: end;
-    }
-
-    .hero-title {
-      font-size: clamp(38px, 5.5vw, 68px);
-      font-weight: 500;
-      line-height: 1.06;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-description {
+    .brand-badge {
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      padding: 2px 5px;
       font-size: 13px;
-      line-height: 1.6;
-      color: var(--text-muted);
-      max-width: 320px;
-      justify-self: end;
+      font-weight: 700;
+      line-height: 1;
     }
 
-    /* PROJECTS & CAROUSEL */
-    .projects {
-      position: relative;
-      padding: 30px 0 60px;
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    .projects-header {
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      text-decoration: none;
+      color: var(--border-dark);
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+
+    .nav-item.active a {
+      background-color: var(--border-dark);
+      color: #fff;
+    }
+
+    .nav-item a i {
+      font-size: 14px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    /* ПРАВАЯ ОБЛАСТЬ (КОНТЕНТ) */
+    .main-canvas {
+      flex: 1;
+      background-color: var(--bg-main);
+      border-left: 2px solid var(--border-dark);
+      margin: 12px 12px 12px 0;
+      border: 2px solid var(--border-dark);
+      padding: 16px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ШАПКА ВНУТРИ КОНТЕНТА */
+    .content-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 36px;
-    }
-
-    .projects-title {
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
-
-    .projects-counter {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .carousel-stage {
-      position: relative;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      overflow: hidden;
-      padding: 40px 0;
-    }
-
-    .carousel-track {
-      display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 24px;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
+      gap: 12px;
     }
 
-    .project-card {
-      flex: 0 0 280px;
-      width: 280px;
-      opacity: 0.35;
-      transform: scale(0.85);
-      filter: blur(1.5px);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      user-select: none;
+    .btn-square {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      font-size: 14px;
     }
 
-    .project-card.active {
-      opacity: 1;
-      transform: scale(1.08) translateY(-8px);
-      filter: blur(0);
-      cursor: default;
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: flex-end;
     }
 
-    .project-card.active .card-box {
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 84, 41, 0.25);
-    }
-
-    .project-card.prev-card,
-    .project-card.next-card {
-      opacity: 0.75;
-      transform: scale(0.95);
-      filter: blur(0px);
-    }
-
-    .card-box {
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 2px solid var(--border-dark);
+      padding: 4px 12px;
       width: 100%;
-      height: 380px;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 18px;
-      position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      max-width: 270px;
+      height: 32px;
     }
 
-    .card-box img {
+    .search-bar input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 11px;
+      width: 100%;
+      font-family: var(--font-sans);
+      color: #777;
+    }
+
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--border-dark);
+      overflow: hidden;
+    }
+
+    .user-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
 
-    .card-meta {
+    /* ЗАГОЛОВКИ СЕКЦИЙ */
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .sub-title {
+      font-family: var(--font-mono);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* СЕТКА ТРЕНЕРА И ОПЫТА РАБОТЫ */
+    .trainer-experience-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* КАРТОЧКА ТРЕНЕРА (ЖЕЛТАЯ) */
+    .trainer-card {
+      background-color: var(--card-yellow);
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+    }
+
+    .trainer-photo-wrap {
+      width: 130px;
+      height: 160px;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .trainer-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .trainer-info-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .trainer-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .trainer-name {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .trainer-email {
       font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+      color: #333;
+      margin-top: 2px;
+      margin-bottom: 12px;
     }
 
-    .card-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    .carousel-controls {
+    .social-links {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      margin-top: 10px;
+      gap: 4px;
     }
 
-    .control-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      transition: color 0.2s, background-color 0.2s;
+      font-size: 12px;
+      text-decoration: none;
+      color: var(--border-dark);
     }
 
-    .control-btn:hover {
-      color: var(--text-main);
-      background-color: rgba(255, 255, 255, 0.05);
+    /* СТАТИСТИКА 4 КВАДРАТА */
+    .stats-matrix {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+      margin-bottom: 12px;
     }
 
-    .dots-list {
+    .stat-box {
+      padding: 6px 4px;
+      text-align: center;
+      border-right: 1.5px solid var(--border-dark);
+      background: #fff;
+    }
+
+    .stat-box:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 8.5px;
+      color: #444;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .trainer-bio {
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: #222;
+      margin-bottom: 14px;
+    }
+
+    .trainer-actions {
       display: flex;
       gap: 8px;
     }
 
-    .dot-item {
-      width: 6px;
-      height: 6px;
-      background-color: #333;
-      border-radius: 50%;
-      transition: all 0.3s ease;
+    .btn-request {
+      flex: 1.3;
+      background-color: var(--border-dark);
+      color: #fff;
+      border: 1.5px solid var(--border-dark);
+      padding: 6px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-portfolio {
+      flex: 1;
+      background-color: #fff;
+      color: var(--border-dark);
+      border: 1.5px solid var(--border-dark);
+      padding: 6px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    .dot-item.active {
-      background-color: #fff;
-      transform: scale(1.3);
-    }
-
-    /* SERVICES */
-    .services {
-      padding: 100px 0 40px;
-    }
-
-    .services-tag {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-      margin-bottom: 18px;
-      display: block;
-      font-weight: 600;
-    }
-
-    .services-headline {
-      font-size: clamp(24px, 3.2vw, 36px);
-      font-weight: 500;
-      line-height: 1.25;
-      letter-spacing: -0.03em;
-      max-width: 650px;
-      margin-bottom: 70px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      border-top: 1px solid var(--border-color);
-      padding-top: 40px;
-    }
-
-    .service-node {
+    /* ОПЫТ РАБОТЫ (ПРАВЫЙ СПИСОК) */
+    .experience-list {
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
 
-    .node-num {
+    .experience-item {
+      background: var(--card-white);
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 10px 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .exp-icon {
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .node-title {
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
+    .exp-body h4 {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 1px;
     }
 
-    .node-subtitle {
-      font-size: 13px;
+    .exp-body .exp-company {
+      font-size: 10px;
+      color: #333;
+    }
+
+    .exp-body .exp-date {
+      font-size: 9.5px;
+      color: #666;
+    }
+
+    /* НИЖНЯЯ СЕКЦИЯ (ОТЗЫВЫ) */
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .btn-view-all {
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+      padding: 2px 10px;
+      font-size: 10px;
       font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 8px;
+      cursor: pointer;
     }
 
-    .node-desc {
-      font-size: 12px;
-      line-height: 1.6;
-      color: var(--text-muted);
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr 1fr;
+      gap: 12px;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    /* РОЗОВАЯ КАРТОЧКА СТАТИСТИКИ */
+    .rating-stat-card {
+      background-color: var(--card-pink);
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rating-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--border-dark);
+      padding-bottom: 8px;
+    }
+
+    .rating-score {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-stats {
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+
+    .rating-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+    }
+
+    .rates-count {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .rates-caption {
+      font-size: 9px;
+      color: #333;
+    }
+
+    .svg-chart {
+      width: 100px;
+      height: 36px;
+    }
+
+    /* КАРТОЧКИ ОТЗЫВОВ СТУДЕНТОВ */
+    .review-card {
+      background: var(--card-white);
+      border: 2px solid var(--border-dark);
+      box-shadow: var(--shadow-brutal);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .reviewer-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .reviewer-name {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .reviewer-role {
+      font-size: 8.5px;
+      color: #666;
+    }
+
+    .reviewer-score {
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .review-text {
+      font-size: 9.5px;
+      line-height: 1.35;
+      color: #333;
+    }
+
+    /* АДАПТИВНОСТЬ */
+    @media (max-width: 960px) {
+      .dashboard-window {
+        flex-direction: column;
       }
-      .hero-description {
-        justify-self: start;
+      .sidebar {
+        width: 100%;
       }
-      .services-grid {
+      .trainer-experience-grid {
         grid-template-columns: 1fr;
-        gap: 32px;
+      }
+      .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+      .trainer-card {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ХЕДЕР -->
-  <header class="container">
-    <div class="brand-logo">Studio X</div>
-    <button class="menu-btn" aria-label="Открыть меню">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </header>
-
-  <!-- ГЛАВНЫЙ ЭКРАН -->
-  <section class="hero container">
-    <div class="hero-grid">
-      <h1 class="hero-title">We Craft<br>Human–Centric<br>Digital Products.</h1>
-      <p class="hero-description">
-        Located in the United States, our studio is dedicated to crafting robust and renowned brands.
-      </p>
-    </div>
-  </section>
-
-  <!-- КАРУСЕЛЬ ПРОЕКТОВ -->
-  <section class="projects">
-    <div class="container">
-      <div class="projects-header">
-        <h2 class="projects-title">Projects</h2>
-        <a href="#projects" class="projects-counter">More +500</a>
+  <div class="dashboard-window">
+    
+    <!-- САЙДБАР С НАВИГАЦИЕЙ -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-logo">
+          <span class="brand-badge">&lt;/&gt;</span> JEDI
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#"><i class="ri-home-4-line"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="ri-calendar-line"></i> Schedule</a>
+          </li>
+          <li class="nav-item active">
+            <a href="#"><i class="ri-graduation-cap-fill"></i> Trainers</a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="ri-shield-check-line"></i> Policy Library</a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="ri-settings-4-line"></i> Preferences</a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="ri-logout-box-r-line"></i> Log out</a>
+          </li>
+        </ul>
       </div>
-    </div>
 
-    <div class="carousel-stage">
-      <div class="carousel-track" id="track">
+      <div class="sidebar-bottom">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#"><i class="ri-settings-4-line"></i> Preferences</a>
+          </li>
+          <li class="nav-item">
+            <a href="#"><i class="ri-logout-box-r-line"></i> Log out</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ОСНОВНАЯ ЧАСТЬ ЭКРАНА -->
+    <main class="main-canvas">
+      
+      <!-- ШАПКА -->
+      <div class="content-header">
+        <button class="btn-square" aria-label="Go back">
+          <i class="ri-arrow-left-line"></i>
+        </button>
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ri-search-line" style="font-size: 13px; color: #555;"></i>
+            <input type="text" placeholder="Find courses, trainers, etc.">
+          </div>
+          <button class="btn-square" aria-label="Notifications">
+            <i class="ri-notification-3-line"></i>
+          </button>
+          <div class="user-avatar">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80" alt="User Profile">
+          </div>
+        </div>
+      </div>
+
+      <!-- ВЕРХНИЙ БЛОК: ТРЕНЕР И ОПЫТ РАБОТЫ -->
+      <div class="trainer-experience-grid">
         
-        <!-- Карточка 1 -->
-        <div class="project-card" data-index="0">
-          <div class="card-box">
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80" alt="Alyai Tech Product">
+        <!-- КОЛОНКА ТРЕНЕРА -->
+        <div>
+          <h2 class="section-title">Trainer info</h2>
+          <div class="trainer-card">
+            <div class="trainer-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Hillary Bale">
+            </div>
+            
+            <div class="trainer-info-body">
+              <div class="trainer-top-meta">
+                <div>
+                  <h3 class="trainer-name">Hillary Bale</h3>
+                  <p class="trainer-email">hill.bale@gmail.com</p>
+                </div>
+                <div class="social-links">
+                  <a href="#" class="social-icon"><i class="ri-twitter-x-line"></i></a>
+                  <a href="#" class="social-icon"><i class="ri-linkedin-fill"></i></a>
+                  <a href="#" class="social-icon"><i class="ri-instagram-line"></i></a>
+                </div>
+              </div>
+
+              <!-- МАТРИЦА 4 ПОКАЗАТЕЛЕЙ -->
+              <div class="stats-matrix">
+                <div class="stat-box">
+                  <div class="stat-num">10+</div>
+                  <div class="stat-label">experience</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-num">#1</div>
+                  <div class="stat-label">on platform</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-num">5 ya</div>
+                  <div class="stat-label">of teaching</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-num">12</div>
+                  <div class="stat-label">courses</div>
+                </div>
+              </div>
+
+              <p class="trainer-bio">
+                I'm JavaScript trainer with over 10 years of experience in the software development industry. Passionated about teaching how to code and helping them develop their skills.
+              </p>
+
+              <div class="trainer-actions">
+                <button class="btn-request"><i class="ri-mic-line"></i> Request session</button>
+                <button class="btn-portfolio">Portfolio</button>
+              </div>
+            </div>
           </div>
-          <div class="card-meta">Jan 2024</div>
-          <div class="card-name">alyai</div>
         </div>
 
-        <!-- Карточка 2 -->
-        <div class="project-card" data-index="1">
-          <div class="card-box">
-            <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=700&q=80" alt="Mperatrice Perfume">
-          </div>
-          <div class="card-meta">24 Feb 2024</div>
-          <div class="card-name">Mperatrice</div>
-        </div>
+        <!-- КОЛОНКА ОПЫТА РАБОТЫ -->
+        <div>
+          <h3 class="sub-title">Work experience</h3>
+          <div class="experience-list">
+            
+            <div class="experience-item">
+              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
+              <div class="exp-body">
+                <h4>Senior JavaScript Developer</h4>
+                <div class="exp-company">Firecracker Inc.</div>
+                <div class="exp-date">May 2022 – present</div>
+              </div>
+            </div>
 
-        <!-- Карточка 3 -->
-        <div class="project-card" data-index="2">
-          <div class="card-box" style="background: #2a6f4e;">
-            <img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=700&q=80" alt="Sweet Puffs">
-          </div>
-          <div class="card-meta">20 May 2024</div>
-          <div class="card-name">Sweet Puffs</div>
-        </div>
+            <div class="experience-item">
+              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
+              <div class="exp-body">
+                <h4>Senior JavaScript Developer</h4>
+                <div class="exp-company">Pro Property Maintenance</div>
+                <div class="exp-date">May 2013 – Nov 2022</div>
+              </div>
+            </div>
 
-        <!-- Карточка 4 -->
-        <div class="project-card" data-index="3">
-          <div class="card-box" style="background: var(--accent-orange);">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80" alt="Heiyam Rebranding" style="mix-blend-mode: luminosity;">
-          </div>
-          <div class="card-meta">24 Jun 2024</div>
-          <div class="card-name">Heiyam Rebranding</div>
-        </div>
+            <div class="experience-item">
+              <div class="exp-icon"><i class="ri-briefcase-4-line"></i></div>
+              <div class="exp-body">
+                <h4>Middle JavaScript Developer</h4>
+                <div class="exp-company">Cut Rite Lawn Care</div>
+                <div class="exp-date">May 2012 – Nov 2013</div>
+              </div>
+            </div>
 
-        <!-- Карточка 5 -->
-        <div class="project-card" data-index="4">
-          <div class="card-box">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=80" alt="Cosmetic Brand">
           </div>
-          <div class="card-meta">24 Aug 2024</div>
-          <div class="card-name">Cosmetic</div>
-        </div>
-
-        <!-- Карточка 6 -->
-        <div class="project-card" data-index="5">
-          <div class="card-box">
-            <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=700&q=80" alt="Tech Product Design">
-          </div>
-          <div class="card-meta">24 Jan 2024</div>
-          <div class="card-name">Tech product</div>
         </div>
 
       </div>
-    </div>
 
-    <!-- УПРАВЛЕНИЕ КАРУСЕЛЬЮ -->
-    <div class="carousel-controls">
-      <button class="control-btn" id="prevBtn" aria-label="Предыдущий слайд">&#8592;</button>
-      <div class="dots-list" id="dotsContainer"></div>
-      <button class="control-btn" id="nextBtn" aria-label="Следующий слайд">&#8594;</button>
-    </div>
-  </section>
+      <!-- НИЖНИЙ БЛОК: СТУДЕНЧЕСКИЕ ОТЗЫВЫ -->
+      <div>
+        <div class="reviews-header">
+          <h2 class="section-title" style="margin-bottom: 0;">Students reviews</h2>
+          <button class="btn-view-all">View all</button>
+        </div>
 
-  <!-- СЕКЦИЯ УСЛУГ -->
-  <section class="services container">
-    <span class="services-tag">//SERVICES</span>
-    <h2 class="services-headline">
-      By harnessing both creativity and technical know-how, we turn visions into actuality!
-    </h2>
+        <div class="reviews-grid">
+          
+          <!-- РОЗОВАЯ КАРТОЧКА РЕЙТИНГА СО СТАТИСТИКОЙ -->
+          <div class="rating-stat-card">
+            <div class="rating-top">
+              <div class="rating-score">★ 4.4 / 5.0</div>
+              <button class="btn-stats">See stats</button>
+            </div>
+            <div class="rating-bottom">
+              <div>
+                <div class="rates-count">127</div>
+                <div class="rates-caption">rates from students</div>
+              </div>
+              <!-- Волнообразный график в Neo-brutalism стиле -->
+              <svg class="svg-chart" viewBox="0 0 100 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 28 C 15 28, 20 18, 30 24 C 40 30, 48 5, 58 20 C 68 35, 75 12, 85 24 C 92 30, 95 15, 98 22" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
 
-    <div class="services-grid">
-      <div class="service-node">
-        <span class="node-num">/01</span>
-        <h3 class="node-title">UX Design</h3>
-        <h4 class="node-subtitle">Elevate Your Style</h4>
-        <p class="node-desc">Transform your website into a user-friendly and visually appealing platform.</p>
+          <!-- ОТЗЫВ 1 -->
+          <div class="review-card">
+            <div>
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Nicol W.</div>
+                  <div class="reviewer-role">Junior JavaScript Dev.</div>
+                </div>
+                <div class="reviewer-score">☆ 4.6</div>
+              </div>
+              <p class="review-text">
+                The progress I have made since starting to use is immense! I can study for short periods or long periods at my own convenience - mostly late in the evenings.
+              </p>
+            </div>
+          </div>
+
+          <!-- ОТЗЫВ 2 -->
+          <div class="review-card">
+            <div>
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Stephanie N.</div>
+                  <div class="reviewer-role">Middle JavaScript Dev.</div>
+                </div>
+                <div class="reviewer-score">☆ 4.7</div>
+              </div>
+              <p class="review-text">
+                I felt like I learned months in a week. I love how she uses learning by practice and gives great challenges to help the learner to understand a new concept and subject.
+              </p>
+            </div>
+          </div>
+
+          <!-- ОТЗЫВ 3 -->
+          <div class="review-card">
+            <div>
+              <div class="reviewer-meta">
+                <div>
+                  <div class="reviewer-name">Vane F.</div>
+                  <div class="reviewer-role">Junior JavaScript Dev.</div>
+                </div>
+                <div class="reviewer-score">☆ 4.3</div>
+              </div>
+              <p class="review-text">
+                Brilliant learning experience. Very interactive. Literally a game changer if you're learning mostly late in the evenings. I love how she uses learning by practice.
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="service-node">
-        <span class="node-num">/02</span>
-        <h3 class="node-title">Graphic</h3>
-        <h4 class="node-subtitle">eye-catching</h4>
-        <p class="node-desc">Enhance your brand's visual appeal with our top-notch graphic design.</p>
-      </div>
+    </main>
+  </div>
 
-      <div class="service-node">
-        <span class="node-num">/03</span>
-        <h3 class="node-title">UI Design</h3>
-        <h4 class="node-subtitle">Personal Style</h4>
-        <p class="node-desc">Revolutionize your website's design and make it more user-friendly and modern.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ЛОГИКА АНИМАЦИИ КАРУСЕЛИ -->
-  <script>
-    const track = document.getElementById('track');
-    const cards = Array.from(document.querySelectorAll('.project-card'));
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const dotsContainer = document.getElementById('dotsContainer');
-
-    let currentIndex = 3; // По умолчанию активна оранжевая карточка (Heiyam Rebranding)
-
-    // Генерация точек навигации
-    cards.forEach((_, idx) => {
-      const dot = document.createElement('div');
-      dot.classList.add('dot-item');
-      if (idx === currentIndex) dot.classList.add('active');
-      dot.addEventListener('click', () => updateCarousel(idx));
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = Array.from(document.querySelectorAll('.dot-item'));
-
-    function updateCarousel(newIndex) {
-      currentIndex = (newIndex + cards.length) % cards.length;
-
-      cards.forEach((card, index) => {
-        card.classList.remove('active', 'prev-card', 'next-card');
-        
-        if (index === currentIndex) {
-          card.classList.add('active');
-        } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
-          card.classList.add('prev-card');
-        } else if (index === (currentIndex + 1) % cards.length) {
-          card.classList.add('next-card');
-        }
-      });
-
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
-      });
-
-      // Центрирование активной карточки
-      const activeCard = cards[currentIndex];
-      const trackRect = track.getBoundingClientRect();
-      const cardRect = activeCard.getBoundingClientRect();
-      const offset = (cardRect.left + cardRect.width / 2) - (window.innerWidth / 2);
-
-      const currentTransform = new WebKitCSSMatrix(window.getComputedStyle(track).transform).m41 || 0;
-      track.style.transform = `translateX(${currentTransform - offset}px)`;
-    }
-
-    // Слушатели кнопок и кликов по карточкам
-    prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
-    nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
-
-    cards.forEach((card, idx) => {
-      card.addEventListener('click', () => {
-        if (currentIndex !== idx) updateCarousel(idx);
-      });
-    });
-
-    // Инициализация позиции после отрисовки
-    window.addEventListener('load', () => {
-      updateCarousel(currentIndex);
-    });
-    window.addEventListener('resize', () => {
-      updateCarousel(currentIndex);
-    });
-  </script>
 </body>
 </html>
