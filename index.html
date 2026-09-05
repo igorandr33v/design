@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — Brand Identity & Design Systems</title>
-  <!-- Шрифты: Space Mono (акцентный нео-брутализм) и Inter (читаемый интерфейс) -->
+  <!-- Шрифты: Space Mono (нео-брутализм) и Inter (читаемый интерфейс) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -13,7 +13,6 @@
 
   <style>
     :root {
-      --bg-outer: #f6a282;
       --bg-sidebar: #a8d5ba;
       --bg-main: #fcf6e9;
       --card-yellow: #f8c953;
@@ -21,7 +20,7 @@
       --card-white: #ffffff;
       --border-dark: #121212;
       --shadow-brutal: 4px 4px 0px #121212;
-      --shadow-brutal-sm: 2px 2px 0px #121212;
+      --shadow-brutal-sm: 3px 3px 0px #121212;
       --font-mono: 'Space Mono', monospace;
       --font-sans: 'Inter', -apple-system, sans-serif;
     }
@@ -33,34 +32,29 @@
       user-select: none;
     }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #66b5ff 0%, #66b5ff 32%, #f6a282 32%, #f6a282 100%);
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-sidebar);
       font-family: var(--font-sans);
       color: var(--border-dark);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
     }
 
-    /* ОСНОВНОЙ КОНТЕЙНЕР */
+    /* ПОЛНОЭКРАННЫЙ КОНТЕЙНЕР */
     .dashboard-window {
-      width: 100%;
-      max-width: 1140px;
+      width: 100vw;
+      height: 100vh;
       background-color: var(--bg-sidebar);
-      border: 3px solid var(--border-dark);
-      box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.35);
       display: flex;
-      min-height: 740px;
       position: relative;
     }
 
     /* САЙДБАР */
     .sidebar {
-      width: 200px;
+      width: 220px;
       flex-shrink: 0;
-      padding: 24px 16px;
+      padding: 24px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -74,7 +68,7 @@
       font-weight: 700;
       font-size: 20px;
       letter-spacing: 0.5px;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
       cursor: pointer;
     }
 
@@ -91,7 +85,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
 
     .nav-item {
@@ -101,7 +95,7 @@
       padding: 10px 14px;
       text-decoration: none;
       color: var(--border-dark);
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       border: 2px solid transparent;
       cursor: pointer;
@@ -109,16 +103,18 @@
       background: transparent;
       width: 100%;
       text-align: left;
+      font-family: var(--font-sans);
     }
 
-    .nav-item:hover {
+    .nav-item:hover:not(.active) {
       background: rgba(255, 255, 255, 0.4);
       border-color: var(--border-dark);
     }
 
+    /* АКТИВНАЯ ВКЛАДКА: ЖЕЛТЫЙ ФОН #f8c953 + ЧЕРНАЯ ТЕНЬ */
     .nav-item.active {
-      background-color: var(--border-dark);
-      color: #fff;
+      background-color: var(--card-yellow);
+      color: var(--border-dark);
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal-sm);
       transform: translate(-2px, -2px);
@@ -129,10 +125,10 @@
     }
 
     .sidebar-footer {
-      font-size: 10px;
+      font-size: 10.5px;
       font-family: var(--font-mono);
       color: #2b4435;
-      line-height: 1.4;
+      line-height: 1.6;
       border-top: 2px dashed var(--border-dark);
       padding-top: 14px;
     }
@@ -143,88 +139,37 @@
       background-color: var(--bg-main);
       border: 3px solid var(--border-dark);
       margin: 14px 14px 14px 0;
-      padding: 20px 24px 28px;
+      padding: 24px 32px;
       display: flex;
       flex-direction: column;
       gap: 20px;
       overflow-y: auto;
-      max-height: 800px;
+      height: calc(100vh - 28px);
     }
 
-    /* ВЕРХНЯЯ СТРОКА ПОИСКА И ДЕЙСТВИЙ */
+    /* ВЕРХНИЙ БАР */
     .content-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-square {
-      width: 34px;
-      height: 34px;
-      border: 2px solid var(--border-dark);
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 15px;
-      box-shadow: var(--shadow-brutal-sm);
-      transition: transform 0.1s;
-    }
-
-    .btn-square:active {
-      transform: translate(2px, 2px);
-      box-shadow: none;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
       justify-content: flex-end;
-    }
-
-    .search-bar {
-      display: flex;
       align-items: center;
-      gap: 8px;
-      background: #fff;
-      border: 2px solid var(--border-dark);
-      padding: 4px 12px;
-      width: 100%;
-      max-width: 280px;
-      height: 34px;
-      box-shadow: var(--shadow-brutal-sm);
-    }
-
-    .search-bar input {
-      border: none;
-      outline: none;
-      background: transparent;
-      font-size: 11.5px;
-      width: 100%;
-      font-family: var(--font-sans);
-      color: #121212;
     }
 
     .status-pill {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       background: #c3e88d;
       border: 2px solid var(--border-dark);
-      padding: 6px 10px;
+      padding: 6px 12px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       box-shadow: var(--shadow-brutal-sm);
     }
 
     .status-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       background: #00aa44;
       border-radius: 50%;
       animation: pulse 1.8s infinite;
@@ -236,7 +181,7 @@
       100% { opacity: 0.4; }
     }
 
-    /* СЕКЦИИ ВКЛАДОК */
+    /* ВКЛАДКИ */
     .tab-content {
       display: none;
       flex-direction: column;
@@ -255,14 +200,14 @@
 
     .section-title {
       font-family: var(--font-mono);
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
 
     .sub-title {
       font-family: var(--font-mono);
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       margin-bottom: 12px;
     }
@@ -271,7 +216,7 @@
     .designer-experience-grid {
       display: grid;
       grid-template-columns: 1.55fr 1fr;
-      gap: 18px;
+      gap: 24px;
       align-items: start;
     }
 
@@ -279,14 +224,14 @@
       background-color: var(--card-yellow);
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal);
-      padding: 18px;
+      padding: 22px;
       display: flex;
-      gap: 18px;
+      gap: 20px;
     }
 
     .designer-photo-wrap {
-      width: 140px;
-      height: 175px;
+      width: 150px;
+      height: 195px;
       border: 2px solid var(--border-dark);
       background: #111;
       overflow: hidden;
@@ -316,13 +261,13 @@
     }
 
     .designer-name {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       line-height: 1.1;
     }
 
     .designer-specialty {
-      font-size: 11px;
+      font-size: 11.5px;
       font-family: var(--font-mono);
       color: #333;
       margin-top: 3px;
@@ -330,21 +275,21 @@
 
     .social-links {
       display: flex;
-      gap: 5px;
+      gap: 6px;
     }
 
     .social-icon {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border: 1.5px solid var(--border-dark);
       background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 14px;
       text-decoration: none;
       color: var(--border-dark);
-      box-shadow: 1.5px 1.5px 0px #121212;
+      box-shadow: var(--shadow-brutal-sm);
       transition: transform 0.1s;
     }
 
@@ -358,12 +303,12 @@
       grid-template-columns: repeat(4, 1fr);
       border: 2px solid var(--border-dark);
       background: #fff;
-      margin: 10px 0 12px;
+      margin: 12px 0 14px;
       box-shadow: var(--shadow-brutal-sm);
     }
 
     .stat-box {
-      padding: 6px 4px;
+      padding: 8px 4px;
       text-align: center;
       border-right: 1.5px solid var(--border-dark);
       background: #fff;
@@ -374,34 +319,34 @@
     }
 
     .stat-num {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       font-family: var(--font-mono);
     }
 
     .stat-label {
-      font-size: 8.5px;
+      font-size: 9px;
       color: #333;
       margin-top: 2px;
       text-transform: lowercase;
     }
 
     .designer-bio {
-      font-size: 11px;
-      line-height: 1.4;
+      font-size: 12px;
+      line-height: 1.45;
       color: #1a1a1a;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .designer-actions {
       display: flex;
-      gap: 8px;
+      gap: 10px;
     }
 
     .btn-brutal {
       border: 2px solid var(--border-dark);
-      padding: 8px 12px;
-      font-size: 11px;
+      padding: 9px 14px;
+      font-size: 11.5px;
       font-weight: 700;
       font-family: var(--font-mono);
       cursor: pointer;
@@ -434,16 +379,16 @@
     .experience-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .experience-item {
       background: var(--card-white);
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal);
-      padding: 10px 12px;
+      padding: 12px 14px;
       display: flex;
-      gap: 12px;
+      gap: 14px;
       align-items: flex-start;
       transition: transform 0.15s;
     }
@@ -453,134 +398,33 @@
     }
 
     .exp-icon {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border: 1.5px solid var(--border-dark);
       background: #f7bdf7;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 15px;
       flex-shrink: 0;
-      box-shadow: 1.5px 1.5px 0px #121212;
+      box-shadow: var(--shadow-brutal-sm);
     }
 
     .exp-body h4 {
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .exp-body .exp-company {
-      font-size: 10.5px;
+      font-size: 11px;
       color: #333;
       font-weight: 500;
     }
 
     .exp-body .exp-date {
-      font-size: 9.5px;
-      color: #666;
-      font-family: var(--font-mono);
-    }
-
-    /* ОТЗЫВЫ КЛИЕНТОВ */
-    .reviews-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    .rating-stat-card {
-      background-color: var(--card-pink);
-      border: 2px solid var(--border-dark);
-      box-shadow: var(--shadow-brutal);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .rating-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--border-dark);
-      padding-bottom: 8px;
-    }
-
-    .rating-score {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-    }
-
-    .rating-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 8px;
-    }
-
-    .rates-count {
-      font-size: 20px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-      line-height: 1;
-    }
-
-    .rates-caption {
-      font-size: 9px;
-      color: #222;
-    }
-
-    .svg-chart {
-      width: 95px;
-      height: 34px;
-    }
-
-    .review-card {
-      background: var(--card-white);
-      border: 2px solid var(--border-dark);
-      box-shadow: var(--shadow-brutal);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .reviewer-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 6px;
-    }
-
-    .reviewer-name {
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .reviewer-role {
-      font-size: 8.5px;
-      color: #666;
-    }
-
-    .reviewer-score {
       font-size: 10px;
-      font-weight: 700;
+      color: #666;
       font-family: var(--font-mono);
-    }
-
-    .review-text {
-      font-size: 9.5px;
-      line-height: 1.35;
-      color: #333;
     }
 
     /* === ВКЛАДКА 2: РАБОТЫ === */
@@ -594,8 +438,8 @@
     .filter-btn {
       background: #fff;
       border: 2px solid var(--border-dark);
-      padding: 4px 12px;
-      font-size: 11px;
+      padding: 5px 14px;
+      font-size: 11.5px;
       font-family: var(--font-mono);
       font-weight: 700;
       cursor: pointer;
@@ -610,7 +454,7 @@
     .works-gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 20px;
     }
 
     .work-item-card {
@@ -631,7 +475,7 @@
 
     .work-thumbnail {
       width: 100%;
-      height: 160px;
+      height: 175px;
       border-bottom: 2px solid var(--border-dark);
       overflow: hidden;
       background: #111;
@@ -655,26 +499,26 @@
       right: 8px;
       background: var(--card-yellow);
       border: 1.5px solid var(--border-dark);
-      padding: 2px 6px;
-      font-size: 9px;
+      padding: 2px 7px;
+      font-size: 9.5px;
       font-family: var(--font-mono);
       font-weight: 700;
     }
 
     .work-details {
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
     .work-title {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
     }
 
     .work-desc {
-      font-size: 10.5px;
+      font-size: 11px;
       color: #555;
       line-height: 1.4;
     }
@@ -683,51 +527,51 @@
     .contacts-layout {
       display: grid;
       grid-template-columns: 1fr 1.3fr;
-      gap: 20px;
+      gap: 24px;
       align-items: start;
     }
 
     .contact-info-panel {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .contact-card-box {
       background: #fff;
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal);
-      padding: 14px;
+      padding: 16px;
     }
 
     .contact-card-box h3 {
       font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 6px;
     }
 
     .contact-card-box p {
-      font-size: 11px;
+      font-size: 11.5px;
       color: #444;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .channel-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .channel-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--border-dark);
       text-decoration: none;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border: 1.5px solid var(--border-dark);
       background: var(--bg-main);
       box-shadow: var(--shadow-brutal-sm);
@@ -741,21 +585,21 @@
       background: var(--card-yellow);
       border: 2px solid var(--border-dark);
       box-shadow: var(--shadow-brutal);
-      padding: 20px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
     }
 
     .form-group label {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
     }
 
@@ -763,9 +607,9 @@
     .form-group textarea {
       border: 2px solid var(--border-dark);
       background: #fff;
-      padding: 8px 10px;
+      padding: 9px 12px;
       font-family: var(--font-sans);
-      font-size: 12px;
+      font-size: 12.5px;
       outline: none;
       width: 100%;
       box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
@@ -773,16 +617,16 @@
 
     .form-group textarea {
       resize: vertical;
-      min-height: 80px;
+      min-height: 90px;
     }
 
-    /* МОДАЛЬНОЕ ОКНО ПРОЕКТА */
+    /* МОДАЛЬНОЕ ОКНО */
     .modal-overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.65);
       display: none;
       justify-content: center;
@@ -796,8 +640,8 @@
       border: 3px solid var(--border-dark);
       box-shadow: 8px 8px 0px var(--border-dark);
       width: 100%;
-      max-width: 500px;
-      padding: 20px;
+      max-width: 520px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -819,10 +663,23 @@
 
     .modal-header h3 {
       font-family: var(--font-mono);
-      font-size: 16px;
+      font-size: 17px;
     }
 
-    /* УВЕДОМЛЕНИЕ (TOAST) */
+    .btn-square {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--border-dark);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      box-shadow: var(--shadow-brutal-sm);
+    }
+
+    /* TOAST УВЕДОМЛЕНИЕ */
     .toast-alert {
       position: fixed;
       bottom: 24px;
@@ -848,8 +705,14 @@
 
     /* АДАПТИВНОСТЬ */
     @media (max-width: 960px) {
+      html, body {
+        overflow-y: auto;
+        height: auto;
+      }
       .dashboard-window {
         flex-direction: column;
+        height: auto;
+        min-height: 100vh;
       }
       .sidebar {
         width: 100%;
@@ -861,13 +724,12 @@
       }
       .main-canvas {
         margin: 12px;
+        height: auto;
+        max-height: none;
       }
       .designer-experience-grid,
       .contacts-layout {
         grid-template-columns: 1fr;
-      }
-      .reviews-grid {
-        grid-template-columns: 1fr 1fr;
       }
       .works-gallery-grid {
         grid-template-columns: 1fr 1fr;
@@ -875,7 +737,6 @@
     }
 
     @media (max-width: 620px) {
-      .reviews-grid,
       .works-gallery-grid {
         grid-template-columns: 1fr;
       }
@@ -885,7 +746,7 @@
       }
       .designer-photo-wrap {
         width: 100%;
-        height: 200px;
+        height: 220px;
       }
     }
   </style>
@@ -923,32 +784,16 @@
       <div class="sidebar-footer">
         <div>● BRAND IDENTITY</div>
         <div>● DESIGN SYSTEMS</div>
-        <div style="margin-top: 6px; color: #1a2f23;">© 2026 Studio</div>
       </div>
     </aside>
 
     <!-- ОСНОВНАЯ РАБОЧАЯ ПАНЕЛЬ -->
     <main class="main-canvas">
       
-      <!-- ВЕРХНИЙ ТУЛБАР -->
+      <!-- ВЕРХНИЙ БАР СО СТАТУСОМ -->
       <div class="content-header">
-        <button class="btn-square" onclick="navigateHistory(-1)" title="Назад">
-          <i class="ri-arrow-left-line"></i>
-        </button>
-
-        <div class="header-right">
-          <div class="search-bar">
-            <i class="ri-search-line" style="font-size: 13px; color: #555;"></i>
-            <input type="text" id="searchInput" placeholder="Поиск кейсов, айдентики..." oninput="handleSearch(this.value)">
-          </div>
-
-          <div class="status-pill">
-            <span class="status-dot"></span> OPEN FOR PROJECTS
-          </div>
-
-          <button class="btn-square" onclick="showToast('Уведомлений нет. Все системы работают в штатном режиме!')" title="Уведомления">
-            <i class="ri-notification-3-line"></i>
-          </button>
+        <div class="status-pill">
+          <span class="status-dot"></span> OPEN FOR PROJECTS
         </div>
       </div>
 
@@ -956,10 +801,10 @@
       <section id="tab-about" class="tab-content active">
         
         <div class="designer-experience-grid">
-          <!-- ГЛАВНАЯ КАРТОЧКА ДИЗАЙНЕРА -->
+          <!-- КАРТОЧКА ДИЗАЙНЕРА -->
           <div>
             <h2 class="section-title">Designer info</h2>
-            <div class="designer-card">
+            <div class="designer-card" style="margin-top: 12px;">
               <div class="designer-photo-wrap">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Lead Brand Designer">
               </div>
@@ -970,10 +815,10 @@
                     <h3 class="designer-name">Alex V. Miller</h3>
                     <p class="designer-specialty">Brand Identity &amp; Systems</p>
                   </div>
+                  <!-- СОЦСЕТИ: BEHANCE + TELEGRAM -->
                   <div class="social-links">
                     <a href="https://behance.net" target="_blank" class="social-icon" title="Behance"><i class="ri-behance-fill"></i></a>
-                    <a href="https://dribbble.com" target="_blank" class="social-icon" title="Dribbble"><i class="ri-dribbble-line"></i></a>
-                    <a href="https://telegram.org" target="_blank" class="social-icon" title="Telegram"><i class="ri-telegram-fill"></i></a>
+                    <a href="https://t.me/" target="_blank" class="social-icon" title="Telegram"><i class="ri-telegram-fill"></i></a>
                   </div>
                 </div>
 
@@ -1013,7 +858,7 @@
             </div>
           </div>
 
-          <!-- КОЛОНКА ОПЫТА И РОЛЕЙ -->
+          <!-- ОПЫТ РАБОТЫ -->
           <div>
             <h3 class="sub-title">Опыт и практика</h3>
             <div class="experience-list">
@@ -1045,67 +890,6 @@
                 </div>
               </div>
 
-            </div>
-          </div>
-        </div>
-
-        <!-- ОТЗЫВЫ КЛИЕНТОВ -->
-        <div>
-          <div class="reviews-header">
-            <h2 class="section-title">Client reviews</h2>
-            <button class="btn-brutal btn-white" style="padding: 3px 10px; font-size: 10px;" onclick="showToast('Все 48 отзывов с подтвержденных проектов загружены')">
-              Смотреть все
-            </button>
-          </div>
-
-          <div class="reviews-grid" style="margin-top: 10px;">
-            <div class="rating-stat-card">
-              <div class="rating-top">
-                <div class="rating-score">★ 4.9 / 5.0</div>
-                <button class="btn-brutal btn-white" style="padding: 2px 6px; font-size: 9px;" onclick="showToast('CSAT индекс удовлетворенности клиентов: 99.2%')">Stats</button>
-              </div>
-              <div class="rating-bottom">
-                <div>
-                  <div class="rates-count">48</div>
-                  <div class="rates-caption">реализованных проектов</div>
-                </div>
-                <svg class="svg-chart" viewBox="0 0 100 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 28 C 15 28, 20 18, 30 24 C 40 30, 48 5, 58 18 C 68 30, 75 10, 85 20 C 92 25, 95 10, 98 14" stroke="#121212" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-
-            <div class="review-card">
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Дмитрий С.</div>
-                  <div class="reviewer-role">CEO, Neura Cloud</div>
-                </div>
-                <div class="reviewer-score">★ 5.0</div>
-              </div>
-              <p class="review-text">Разработанная айдентика и гайдлайн превзошли ожидания. Дизайн-система легко масштабируется под веб и мерч.</p>
-            </div>
-
-            <div class="review-card">
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Анна В.</div>
-                  <div class="reviewer-role">Art Director, Pulse</div>
-                </div>
-                <div class="reviewer-score">★ 4.9</div>
-              </div>
-              <p class="review-text">Филигранная работа с типографикой и швейцарской модульной сеткой. Стиль и подача на уровне лучших работ Behance.</p>
-            </div>
-
-            <div class="review-card">
-              <div class="reviewer-meta">
-                <div>
-                  <div class="reviewer-name">Марк Т.</div>
-                  <div class="reviewer-role">Founder, Kinetix</div>
-                </div>
-                <div class="reviewer-score">★ 5.0</div>
-              </div>
-              <p class="review-text">Быстро, концептуально и с глубоким пониманием бизнес-задач. Помог полностью пересобрать визуальный образ бренда.</p>
             </div>
           </div>
         </div>
@@ -1179,7 +963,7 @@
           </div>
 
           <!-- Проект 5 -->
-          <div class="work-item-card" data-category="identity" onclick="openModal('Nordic Identity Identity', 'Айдентика архитектурного бюро на основе чистой швейцарской сетки и лаконичной графики.')">
+          <div class="work-item-card" data-category="identity" onclick="openModal('Nordic Architecture Identity', 'Айдентика архитектурного бюро на основе чистой швейцарской сетки и лаконичной графики.')">
             <div class="work-thumbnail">
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Work 5">
               <span class="work-tag">Identity</span>
@@ -1191,7 +975,7 @@
           </div>
 
           <!-- Проект 6 -->
-          <div class="work-item-card" data-category="systems" onclick="openModal('Cosmetic Care Tokens', 'Разработка бренд-стандартов и руководства по стилю для международной бьюти-марки.')">
+          <div class="work-item-card" data-category="systems" onclick="openModal('Botanica Brand Guidelines', 'Разработка бренд-стандартов и руководства по стилю для международной бьюти-марки.')">
             <div class="work-thumbnail">
               <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Work 6">
               <span class="work-tag">Systems</span>
@@ -1279,9 +1063,9 @@
       <div class="modal-window" onclick="event.stopPropagation()">
         <div class="modal-header">
           <h3 id="modalTitle">Project Title</h3>
-          <button class="btn-square" style="width: 26px; height: 26px; font-size: 13px;" onclick="closeModal()">✕</button>
+          <button class="btn-square" onclick="closeModal()">✕</button>
         </div>
-        <p id="modalDescription" style="font-size: 11.5px; line-height: 1.5; color: #222;"></p>
+        <p id="modalDescription" style="font-size: 12px; line-height: 1.5; color: #222;"></p>
         <div style="background: var(--card-yellow); padding: 8px 12px; border: 1.5px solid var(--border-dark); font-size: 10.5px; font-family: var(--font-mono);">
           ⚡ Стек: Figma, Adobe Illustrator, Design Tokens, Grid Systems
         </div>
@@ -1299,10 +1083,8 @@
     <span id="toastMsg">Уведомление</span>
   </div>
 
-  <!-- ИНТЕРАКТИВНЫЕ СКРИПТЫ -->
+  <!-- СКРИПТЫ ВЗАИМОДЕЙСТВИЯ -->
   <script>
-    let tabHistory = ['about'];
-
     // Переключение вкладок
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -1313,21 +1095,6 @@
 
       if (activeTab) activeTab.classList.add('active');
       if (activeBtn) activeBtn.classList.add('active');
-
-      if (tabHistory[tabHistory.length - 1] !== tabId) {
-        tabHistory.push(tabId);
-      }
-    }
-
-    // Кнопка «Назад»
-    function navigateHistory(step) {
-      if (tabHistory.length > 1) {
-        tabHistory.pop();
-        const prevTab = tabHistory[tabHistory.length - 1];
-        switchTab(prevTab);
-      } else {
-        showToast('Вы находитесь на начальной странице');
-      }
     }
 
     // Фильтрация кейсов
@@ -1342,21 +1109,6 @@
         } else {
           card.style.display = 'none';
         }
-      });
-    }
-
-    // Поиск по проектам
-    function handleSearch(query) {
-      const q = query.toLowerCase().trim();
-      if (!q) {
-        document.querySelectorAll('.work-item-card').forEach(c => c.style.display = 'flex');
-        return;
-      }
-      
-      switchTab('works');
-      document.querySelectorAll('.work-item-card').forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(q) ? 'flex' : 'none';
       });
     }
 
@@ -1378,7 +1130,7 @@
       event.target.reset();
     }
 
-    // Вызов уведомления (Toast)
+    // Всплывающее уведомление
     function showToast(text) {
       const toast = document.getElementById('toastBox');
       document.getElementById('toastMsg').innerText = text;
