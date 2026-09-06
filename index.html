@@ -1,247 +1,319 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Concept</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Igor Andreev — Portfolio</title>
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --hairline: 1px solid var(--black);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--white);
+      color: var(--black);
+      opacity: 0; 
+      transition: opacity 0.8s ease-out;
+      overflow-x: hidden;
+    }
+
+    body.page-ready {
+      opacity: 1;
+    }
+
+    /* Верхняя навигация */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5vw 2vw;
+      border-bottom: var(--hairline);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .top-bar nav {
+      display: flex;
+      gap: 2vw;
+    }
+
+    .top-bar a {
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    /* Главный заголовок */
+    .hero {
+      padding: 2vw;
+      border-bottom: var(--hairline);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 13vw;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.85;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    /* Секция фильтров */
+    .filters-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5vw 2vw;
+      border-bottom: var(--hairline);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tags button {
+      background: transparent;
+      border: var(--hairline);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .tags button.active, .tags button:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* Модульная сетка */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: var(--hairline);
+    }
+
+    .card {
+      border-right: var(--hairline);
+      padding: 2vw;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card:nth-child(3n) {
+      border-right: none;
+    }
+
+    /* Внутренние границы карточек для полного сходства */
+    .card-inner-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      border-bottom: var(--hairline);
+      padding-bottom: 1vw;
+      margin-bottom: 1.5vw;
+      text-transform: uppercase;
+    }
+
+    .image-wrapper {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      margin-bottom: 1.5vw;
+      background: #f0f0f0;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+
+    .card:hover .image-wrapper img {
+      transform: scale(1.03);
+      filter: grayscale(0%);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75vw;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #444;
+      margin-bottom: 2vw;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      border-top: var(--hairline);
+      padding-top: 1vw;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+
+    /* Адаптив */
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .card:nth-child(2n) { border-right: none; }
+      .card:nth-child(3n) { border-right: var(--hairline); }
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { border-right: none; border-bottom: var(--hairline); }
+      .tags { display: none; } /* Скрытие фильтров на мобильных */
+    }
+
+    /* Анимация перехода */
+    .transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--black);
+      z-index: 9999;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+      pointer-events: none;
+    }
+
+    body.is-transitioning .transition-overlay {
+      transform: scaleY(1);
+    }
+  </style>
 </head>
-<body class="page-enter">
+<body>
   <div class="transition-overlay"></div>
 
-  <header class="header">
+  <header>
     <div class="top-bar">
-      <span>YOUR NAME</span>
+      <span>Igor Andreev</span>
       <nav>
         <a href="#">Projects</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="#">Behance</a>
+        <a href="#">Info</a>
       </nav>
     </div>
-    <h1 class="logo">PORTFOLIO</h1>
-  </header>
+    
+    <div class="hero">
+      <h1>PORTFOLIO</h1>
+    </div>
 
-  <main>
-    <div class="filters">
-      <span class="label">Categories</span>
+    <div class="filters-section">
+      <span>Categories</span>
       <div class="tags">
         <button class="active">All</button>
         <button>Brand Identity</button>
         <button>Design Systems</button>
       </div>
     </div>
+  </header>
 
-    <div class="grid">
-      <article class="card" onclick="goToProject('project.html')">
-        <div class="image-wrapper">
-          <img src="https://via.placeholder.com/600x800" alt="Project 1">
-        </div>
-        <h2>Project Title</h2>
-        <p>Short description of the design system and identity work.</p>
-        <div class="meta">Role: Designer <span>2026</span></div>
-      </article>
+  <main class="grid">
+    <!-- Project 1 -->
+    <article class="card" onclick="goToProject('#')">
+      <div class="card-inner-top">
+        <span>Nov 2025</span>
+        <span>Identity</span>
+      </div>
+      <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Minimalist Identity">
+      </div>
+      <h2>Black & White Minimalist</h2>
+      <p>A comprehensive logo presentation template designed in a strict black and white minimalist style to emphasize form and typography.</p>
+      <div class="card-meta">
+        <span>Role: Designer</span>
+        <span>Behance Top</span>
+      </div>
+    </article>
 
-      <article class="card" onclick="goToProject('project.html')">
-        <div class="image-wrapper">
-          <img src="https://via.placeholder.com/600x800" alt="Project 2">
-        </div>
-        <h2>Second Concept</h2>
-        <p>Exploring black and white minimalism in digital environments.</p>
-        <div class="meta">Role: Art Director <span>2026</span></div>
-      </article>
+    <!-- Project 2 -->
+    <article class="card" onclick="goToProject('#')">
+      <div class="card-inner-top">
+        <span>Jun 2026</span>
+        <span>System</span>
+      </div>
+      <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Color System">
+      </div>
+      <h2>Color Palette Automation</h2>
+      <p>Methodology for automatically generating color palettes and defining precise color characteristics within complex layout structures.</p>
+      <div class="card-meta">
+        <span>Role: Art Director</span>
+        <span>System</span>
+      </div>
+    </article>
 
-      <article class="card" onclick="goToProject('project.html')">
-        <div class="image-wrapper">
-          <img src="https://via.placeholder.com/600x800" alt="Project 3">
-        </div>
-        <h2>Third Project</h2>
-        <p>Comprehensive brand identity guidelines and mockups.</p>
-        <div class="meta">Role: Designer <span>2025</span></div>
-      </article>
-    </div>
+    <!-- Project 3 -->
+    <article class="card" onclick="goToProject('#')">
+      <div class="card-inner-top">
+        <span>Mar 2026</span>
+        <span>Branding</span>
+      </div>
+      <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Football Club">
+      </div>
+      <h2>Football Club Identity</h2>
+      <p>Dynamic presentation template for a modern football club logo, focusing on scalability and robust design system integration.</p>
+      <div class="card-meta">
+        <span>Role: Designer</span>
+        <span>Identity</span>
+      </div>
+    </article>
   </main>
 
-  <script src="script.js"></script>
-  :root {
-  --black: #000;
-  --white: #fff;
-  --hairline: 1px solid var(--black);
-}
+  <script>
+    // Плавное появление контента
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('page-ready');
+      });
+    });
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: var(--white);
-  color: var(--black);
-  padding: 2vw;
-  opacity: 0; /* Для начальной анимации появления */
-  transition: opacity 0.8s ease-out;
-}
-
-body.page-ready {
-  opacity: 1;
-}
-
-/* Типографика и шапка */
-.header {
-  border-bottom: var(--hairline);
-  padding-bottom: 2vh;
-  margin-bottom: 3vh;
-}
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  border-bottom: var(--hairline);
-  padding-bottom: 10px;
-  margin-bottom: 2vh;
-}
-
-.top-bar nav a {
-  color: var(--black);
-  text-decoration: none;
-  margin-left: 20px;
-}
-
-.logo {
-  font-size: 11vw;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 0.8;
-  text-transform: uppercase;
-}
-
-/* Фильтры */
-.filters {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: var(--hairline);
-  padding-bottom: 20px;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.tags button {
-  background: transparent;
-  border: 1px solid var(--black);
-  border-radius: 20px;
-  padding: 5px 15px;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: all 0.3s ease;
-}
-
-.tags button.active, .tags button:hover {
-  background: var(--black);
-  color: var(--white);
-}
-
-/* Модульная сетка проектов */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-.card {
-  cursor: pointer;
-  position: relative;
-}
-
-/* Разделительные линии между колонками */
-.card:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -20px;
-  width: 1px;
-  height: 100%;
-  background-color: var(--black);
-}
-
-.image-wrapper {
-  overflow: hidden;
-  margin-bottom: 15px;
-  background: #f4f4f4;
-  aspect-ratio: 3/4;
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  filter: grayscale(100%);
-}
-
-.card:hover .image-wrapper img {
-  transform: scale(1.05);
-}
-
-.card h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.card .meta {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: space-between;
-  border-top: var(--hairline);
-  padding-top: 10px;
-}
-
-/* Экран перехода */
-.transition-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--black);
-  z-index: 9999;
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1);
-  pointer-events: none;
-}
-
-body.is-transitioning .transition-overlay {
-  transform: scaleY(1);
-}
-  // Плавное появление контента при загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
-  requestAnimationFrame(() => {
-    document.body.classList.add('page-ready');
-  });
-});
-
-// Анимация ухода со страницы перед загрузкой нового URL
-function goToProject(url) {
-  document.body.classList.add('is-transitioning');
-  
-  // Ждем завершения CSS-анимации черного экрана (0.7s), затем меняем URL
-  setTimeout(() => {
-    window.location.href = url;
-  }, 700); 
-}
+    // Анимация ухода со страницы
+    function goToProject(url) {
+      document.body.classList.add('is-transitioning');
+      setTimeout(() => {
+        // В реальном проекте здесь будет переход по ссылке:
+        // window.location.href = url;
+        
+        // Для демо-версии сбрасываем анимацию обратно
+        setTimeout(() => {
+          document.body.classList.remove('is-transitioning');
+        }, 100);
+      }, 600); 
+    }
+  </script>
 </body>
 </html>
