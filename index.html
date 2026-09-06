@@ -76,14 +76,12 @@
 
     .card:nth-child(3n) { border-right: none; }
 
-    .card-inner-top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
+    .card h2 { 
+      font-size: 1.375rem; 
+      font-weight: 700; 
+      margin-bottom: 1.5vw;
       border-bottom: var(--hairline);
       padding-bottom: 1vw;
-      margin-bottom: 1.5vw;
-      text-transform: uppercase;
     }
 
     .image-wrapper {
@@ -107,17 +105,12 @@
       filter: grayscale(0%);
     }
 
-    .card h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75vw; }
-    .card p { font-size: 0.85rem; line-height: 1.5; color: #444; margin-bottom: 2vw; flex-grow: 1; }
-
-    .card-meta {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      border-top: var(--hairline);
-      padding-top: 1vw;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
+    .card p { 
+      font-size: 0.85rem; 
+      line-height: 1.5; 
+      color: #444; 
+      margin-bottom: 1vw; 
+      flex-grow: 1; 
     }
 
     /* Подвал */
@@ -194,97 +187,80 @@
   </header>
 
   <main class="grid">
-    <!-- Дублируем карточки до 12 штук -->
-    <!-- 1-3 -->
+    <!-- Project 1 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Nov 2025</span><span>Identity</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Black & White Minimalist</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>A comprehensive logo presentation template designed in a strict black and white minimalist style to emphasize form and typography.</p>
-      <div class="card-meta"><span>Role: Designer</span><span>Behance Top</span></div>
     </article>
+    <!-- Project 2 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Jun 2026</span><span>System</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Color Palette Automation</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Methodology for automatically generating color palettes and defining precise color characteristics within complex layout structures.</p>
-      <div class="card-meta"><span>Role: Art Director</span><span>System</span></div>
     </article>
+    <!-- Project 3 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Mar 2026</span><span>Branding</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Football Club Identity</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Dynamic presentation template for a modern football club logo, focusing on scalability and robust design system integration.</p>
-      <div class="card-meta"><span>Role: Designer</span><span>Identity</span></div>
     </article>
     
-    <!-- 4-6 -->
+    <!-- Project 4 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Feb 2026</span><span>Print</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Editorial Grid Concept</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Strict layout principles applied to a modern editorial magazine concept using solely typography and whitespace.</p>
-      <div class="card-meta"><span>Role: Designer</span><span>Editorial</span></div>
     </article>
+    <!-- Project 5 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Jan 2026</span><span>Web</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Monochrome E-commerce</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Redefining user experience for luxury fashion retail through absolute minimalism and high-contrast imagery.</p>
-      <div class="card-meta"><span>Role: Lead UI</span><span>E-commerce</span></div>
     </article>
+    <!-- Project 6 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Dec 2025</span><span>Packaging</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Cosmetics Rebranding</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Minimalist packaging solution for an organic skincare line, focusing on sustainable materials and bold typography.</p>
-      <div class="card-meta"><span>Role: Art Director</span><span>Packaging</span></div>
     </article>
 
-    <!-- 7-9 -->
+    <!-- Project 7 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Nov 2025</span><span>Identity</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Architecture Bureau</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Brand identity focusing on spatial awareness, structured grids, and brutalist aesthetics for an architectural firm.</p>
-      <div class="card-meta"><span>Role: Designer</span><span>Branding</span></div>
     </article>
+    <!-- Project 8 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Oct 2025</span><span>App</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Fintech Interface</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Streamlined banking application interface removing all non-essential visual noise to focus on data clarity.</p>
-      <div class="card-meta"><span>Role: Product Designer</span><span>Finance</span></div>
     </article>
+    <!-- Project 9 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Sep 2025</span><span>Typography</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Custom Typeface</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>A grotesque geometric typeface developed specifically for large-scale digital displays and bold headlines.</p>
-      <div class="card-meta"><span>Role: Type Designer</span><span>Typography</span></div>
     </article>
 
-    <!-- 10-12 -->
+    <!-- Project 10 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Aug 2025</span><span>Identity</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Gallery Curation</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Visual system for a contemporary art gallery relying strictly on negative space and stark contrasts.</p>
-      <div class="card-meta"><span>Role: Art Director</span><span>Art</span></div>
     </article>
+    <!-- Project 11 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Jul 2025</span><span>Exhibition</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Wayfinding System</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Physical navigation system utilizing high-contrast industrial materials and clear typographic hierarchies.</p>
-      <div class="card-meta"><span>Role: Designer</span><span>Signage</span></div>
     </article>
+    <!-- Project 12 -->
     <article class="card" onclick="goToPage('#')">
-      <div class="card-inner-top"><span>Jun 2025</span><span>Editorial</span></div>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Monograph Book</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>A 200-page retrospective book design utilizing a strictly enforced 12-column Swiss grid structure.</p>
-      <div class="card-meta"><span>Role: Layout Designer</span><span>Print</span></div>
     </article>
   </main>
 
