@@ -38,6 +38,19 @@
       letter-spacing: 0.05em;
     }
 
+    /* Стили для логотипа */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      height: 24px; /* Измени это значение, чтобы сделать логотип больше или меньше */
+      width: auto;
+      display: block;
+    }
+
     .top-bar nav { display: flex; gap: 1.5vw; align-items: center; }
     .top-bar a { color: var(--black); text-decoration: none; display: flex; align-items: center; transition: opacity 0.2s; cursor: pointer; }
     .top-bar a:hover { opacity: 0.6; }
@@ -150,6 +163,7 @@
       .footer { flex-direction: column; gap: 2vw; text-align: center; }
       .footer nav { margin-top: 1vw; }
       .footer a { margin: 0 2vw; }
+      .logo-img { height: 20px; } /* Чуть меньше логотип на мобильных */
     }
 
     /* Анимация перехода */
@@ -172,7 +186,12 @@
 
   <header>
     <div class="top-bar">
-      <span>Igor Andreev</span>
+      <!-- БЛОК ЛОГОТИПА -->
+      <a onclick="goToPage('index.html')" class="logo-link">
+        <img src="images/logo-white.svg" alt="Igor Andreev Logo" class="logo-img">
+      </a>
+      <!-- /БЛОК ЛОГОТИПА -->
+      
       <nav>
         <a onclick="goToPage('about.html')">Обо мне</a>
         <a href="#" aria-label="Telegram"><i class="ri-telegram-fill"></i></a>
@@ -189,14 +208,14 @@
   <main class="grid">
     <!-- Project 1 -->
     <article class="card" onclick="goToPage('#')">
-      <h2>Croydon football club</h2>
-     <div class="image-wrapper"><img src="images/cover.png" alt="Project"></div>
-      <p>Концепт ребрендинга для футбольного клуба Croydon.</p>
+      <h2>Black & White Minimalist</h2>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <p>A comprehensive logo presentation template designed in a strict black and white minimalist style to emphasize form and typography.</p>
     </article>
     <!-- Project 2 -->
     <article class="card" onclick="goToPage('#')">
       <h2>Color Palette Automation</h2>
-      <div class="image-wrapper"><img src=images/cover.png=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Methodology for automatically generating color palettes and defining precise color characteristics within complex layout structures.</p>
     </article>
     <!-- Project 3 -->
@@ -223,44 +242,6 @@
       <h2>Cosmetics Rebranding</h2>
       <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <p>Minimalist packaging solution for an organic skincare line, focusing on sustainable materials and bold typography.</p>
-    </article>
-
-    <!-- Project 7 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Architecture Bureau</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Brand identity focusing on spatial awareness, structured grids, and brutalist aesthetics for an architectural firm.</p>
-    </article>
-    <!-- Project 8 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Fintech Interface</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Streamlined banking application interface removing all non-essential visual noise to focus on data clarity.</p>
-    </article>
-    <!-- Project 9 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Custom Typeface</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>A grotesque geometric typeface developed specifically for large-scale digital displays and bold headlines.</p>
-    </article>
-
-    <!-- Project 10 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Gallery Curation</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Visual system for a contemporary art gallery relying strictly on negative space and stark contrasts.</p>
-    </article>
-    <!-- Project 11 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Wayfinding System</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Physical navigation system utilizing high-contrast industrial materials and clear typographic hierarchies.</p>
-    </article>
-    <!-- Project 12 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Monograph Book</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>A 200-page retrospective book design utilizing a strictly enforced 12-column Swiss grid structure.</p>
     </article>
   </main>
 
