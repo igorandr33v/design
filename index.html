@@ -1,337 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Закрытая картотека</title>
-<style>
-  :root {
-    --black: #111;
-    --white: #fafafa;
-    --font: 'Courier New', Courier, monospace;
-  }
-
-  body {
-    background-color: #d5d5d5;
-    font-family: var(--font);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Прижимаем шкаф к низу */
-    height: 100vh;
-    margin: 0;
-    padding-bottom: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  .cabinet {
-    position: relative;
-    width: 800px;
-    height: 750px; /* Высота шкафа с учетом выезда папок */
-  }
-
-  /* Передняя стенка ящика (скрывает содержимое закрытых папок) */
-  .cabinet-front {
-    position: absolute;
-    bottom: 0;
-    left: -20px;
-    width: 840px;
-    height: 240px;
-    background: var(--white);
-    border: 2px solid var(--black);
-    z-index: 10;
-    border-radius: 4px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Декоративная ручка ящика */
-  .drawer-handle {
-    width: 140px;
-    height: 40px;
-    border: 2px solid var(--black);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 6px;
-    box-sizing: border-box;
-    background: #eaeaea;
-  }
-  .drawer-handle div {
-    height: 2px;
-    background: var(--black);
-  }
-
-  /* Базовый стиль папки */
-  .folder {
-    position: absolute;
-    width: 100%;
-    height: 520px;
-    background: var(--white);
-    border: 2px solid var(--black);
-    border-radius: 12px 12px 0 0;
-    
-    /* ПРАВИЛО 1: Сама папка не реагирует на мышь, чтобы наведение работало только на вкладку */
-    pointer-events: none; 
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .tab {
-    position: absolute;
-    top: -34px;
-    height: 32px;
-    line-height: 32px;
-    padding: 0 30px;
-    background: var(--white);
-    border: 2px solid var(--black);
-    border-bottom: none;
-    border-radius: 12px 12px 0 0;
-    font-size: 14px;
-    font-weight: bold;
-    
-    /* ПРАВИЛО 1: Вкладка ловит мышь */
-    pointer-events: auto; 
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-  }
-
-  /* Невидимый мост для вкладки, чтобы при выезде наверх мышь не теряла фокус */
-  .tab::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 450px; 
-  }
-
-  /* Анимация при наведении только на .tab */
-  .folder:hover {
-    transform: translateY(-420px);
-  }
-
-  .folder:hover .tab {
-    background: var(--black);
-    color: var(--white);
-  }
-
-  /* ПРАВИЛО 2 и 3:
-     Позиционируем папки лесенкой ВНИЗУ (прячем в ящик).
-     z-index строго фиксирован, чтобы задняя папка выезжала ПОЗАДИ передних.
-  */
-  #folder1 { z-index: 1; bottom: -110px; } #folder1 .tab { left: 5%; }
-  #folder2 { z-index: 2; bottom: -150px; } #folder2 .tab { left: 25%; }
-  #folder3 { z-index: 3; bottom: -190px; } #folder3 .tab { left: 45%; }
-  #folder4 { z-index: 4; bottom: -230px; } #folder4 .tab { left: 65%; }
-  #folder5 { z-index: 5; bottom: -270px; } 
-  #folder5 .tab { 
-    left: 20%; 
-    background: var(--black); 
-    color: var(--white); 
-  }
-
-  /* Внутреннее содержимое документа */
-  .paper {
-    padding: 25px;
-    height: 100%;
-    box-sizing: border-box;
-    pointer-events: none;
-  }
-
-  .inner-border {
-    border: 1px dashed var(--black);
-    height: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .header-top {
-    background: var(--black);
-    color: var(--white);
-    padding: 10px;
-    font-size: 28px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .header-bottom {
-    border: 2px solid var(--black);
-    border-top: none;
-    padding: 5px 10px;
-    font-size: 22px;
-    letter-spacing: 4px;
-    margin-bottom: 30px;
-  }
-
-  .content-grid {
-    display: flex;
-    gap: 40px;
-  }
-
-  .column-left, .column-right { flex: 1; }
-  .column-right { flex: 1.5; }
-
-  .small-label {
-    font-size: 11px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-
-  .building-diagram {
-    width: 140px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(8, 20px);
-    gap: 2px;
-    border: 2px solid var(--black);
-    padding: 4px;
-    background: var(--white);
-  }
-
-  .window { border: 1px solid var(--black); }
-  .window.dark { background: var(--black); }
-
-  .black-box {
-    background: var(--black);
-    color: var(--white);
-    padding: 15px;
-    font-size: 26px;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 20px;
-  }
-
-  .showroom-hours {
-    border: 2px solid var(--black);
-    padding: 10px;
-    font-size: 12px;
-    background: var(--white);
-  }
-
-  .days-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 5px;
-  }
-
-  .circle {
-    width: 10px; height: 10px;
-    border: 1px solid var(--black);
-    border-radius: 50%;
-  }
-  .circle.filled { background: var(--black); }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Concept</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-enter">
+  <div class="transition-overlay"></div>
 
-<div class="cabinet">
-
-  <div class="folder" id="folder1">
-    <div class="tab">DESIGNER</div>
-    <div class="paper"><div class="inner-border">
-      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
-      <div class="header-bottom">HEADQUARTERS</div>
-      <div class="content-grid">
-        <div class="column-left">
-          <div class="small-label">BUILDING DIAGRAM</div>
-          <div class="building-diagram">
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-            <div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div>
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-          </div>
-        </div>
-        <div class="column-right">
-          <div class="small-label">EVENT</div>
-          <div class="black-box">INAUGURACION<br>16.08.25</div>
-          <div class="small-label">SHOWROOM HOURS</div>
-          <div class="showroom-hours">
-            <div>OPEN:</div>
-            <div class="days-row"><div class="circle"></div> MON <div class="circle filled"></div> WED <div class="circle filled"></div> FRI</div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="folder" id="folder2">
-    <div class="tab">JEWELRY</div>
-    <div class="paper"><div class="inner-border">
-      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
-      <div class="header-bottom">HEADQUARTERS</div>
-      <div class="content-grid">
-        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
-        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="folder" id="folder3">
-    <div class="tab">VINTAGE</div>
-    <div class="paper"><div class="inner-border">
-      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
-      <div class="header-bottom">HEADQUARTERS</div>
-      <div class="content-grid">
-        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
-        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="folder" id="folder4">
-    <div class="tab">COFFEE</div>
-    <div class="paper"><div class="inner-border">
-      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
-      <div class="header-bottom">HEADQUARTERS</div>
-      <div class="content-grid">
-        <div class="column-left"><div class="small-label">BUILDING DIAGRAM</div><div class="building-diagram"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
-        <div class="column-right"><div class="small-label">EVENT</div><div class="black-box">INAUGURACION<br>16.08.25</div></div>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="folder" id="folder5">
-    <div class="tab">___494___</div>
-    <div class="paper"><div class="inner-border">
-      <div class="header-top"><span>VERONICA</span><span>ZHANG</span></div>
-      <div class="header-bottom">HEADQUARTERS</div>
-      <div class="content-grid">
-        <div class="column-left">
-          <div class="small-label">BUILDING DIAGRAM</div>
-          <div class="building-diagram">
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-            <div class="window dark"></div><div class="window dark"></div><div class="window"></div><div class="window"></div>
-            <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
-          </div>
-        </div>
-        <div class="column-right">
-          <div class="small-label">EVENT</div>
-          <div class="black-box">INAUGURACION<br>16.08.25</div>
-          <div class="small-label">SHOWROOM HOURS</div>
-          <div class="showroom-hours">
-            <div>OPEN:</div>
-            <div class="days-row"><div class="circle"></div> MON <div class="circle filled"></div> WED <div class="circle filled"></div> FRI</div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="cabinet-front">
-    <div class="drawer-handle">
-      <div></div><div></div><div></div>
+  <header class="header">
+    <div class="top-bar">
+      <span>YOUR NAME</span>
+      <nav>
+        <a href="#">Projects</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
     </div>
-  </div>
+    <h1 class="logo">PORTFOLIO</h1>
+  </header>
 
-</div>
+  <main>
+    <div class="filters">
+      <span class="label">Categories</span>
+      <div class="tags">
+        <button class="active">All</button>
+        <button>Brand Identity</button>
+        <button>Design Systems</button>
+      </div>
+    </div>
 
+    <div class="grid">
+      <article class="card" onclick="goToProject('project.html')">
+        <div class="image-wrapper">
+          <img src="https://via.placeholder.com/600x800" alt="Project 1">
+        </div>
+        <h2>Project Title</h2>
+        <p>Short description of the design system and identity work.</p>
+        <div class="meta">Role: Designer <span>2026</span></div>
+      </article>
+
+      <article class="card" onclick="goToProject('project.html')">
+        <div class="image-wrapper">
+          <img src="https://via.placeholder.com/600x800" alt="Project 2">
+        </div>
+        <h2>Second Concept</h2>
+        <p>Exploring black and white minimalism in digital environments.</p>
+        <div class="meta">Role: Art Director <span>2026</span></div>
+      </article>
+
+      <article class="card" onclick="goToProject('project.html')">
+        <div class="image-wrapper">
+          <img src="https://via.placeholder.com/600x800" alt="Project 3">
+        </div>
+        <h2>Third Project</h2>
+        <p>Comprehensive brand identity guidelines and mockups.</p>
+        <div class="meta">Role: Designer <span>2025</span></div>
+      </article>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
