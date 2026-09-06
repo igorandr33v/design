@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Igor Andreev — Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
     :root {
       --black: #000000;
@@ -11,11 +12,7 @@
       --hairline: 1px solid var(--black);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -26,11 +23,9 @@
       overflow-x: hidden;
     }
 
-    body.page-ready {
-      opacity: 1;
-    }
+    body.page-ready { opacity: 1; }
 
-    /* Верхняя навигация */
+    /* Шапка */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -43,17 +38,11 @@
       letter-spacing: 0.05em;
     }
 
-    .top-bar nav {
-      display: flex;
-      gap: 2vw;
-    }
+    .top-bar nav { display: flex; gap: 1.5vw; align-items: center; }
+    .top-bar a { color: var(--black); text-decoration: none; display: flex; align-items: center; transition: opacity 0.2s; cursor: pointer; }
+    .top-bar a:hover { opacity: 0.6; }
+    .top-bar a i { font-size: 1.1rem; }
 
-    .top-bar a {
-      color: var(--black);
-      text-decoration: none;
-    }
-
-    /* Главный заголовок */
     .hero {
       padding: 2vw;
       border-bottom: var(--hairline);
@@ -69,50 +58,15 @@
       margin: 0;
     }
 
-    /* Секция фильтров */
-    .filters-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5vw 2vw;
-      border-bottom: var(--hairline);
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-
-    .tags {
-      display: flex;
-      gap: 10px;
-    }
-
-    .tags button {
-      background: transparent;
-      border: var(--hairline);
-      border-radius: 40px;
-      padding: 6px 16px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      font-weight: 600;
-    }
-
-    .tags button.active, .tags button:hover {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    /* Модульная сетка */
+    /* Сетка проектов */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border-bottom: var(--hairline);
     }
 
     .card {
       border-right: var(--hairline);
+      border-bottom: var(--hairline);
       padding: 2vw;
       cursor: pointer;
       display: flex;
@@ -120,11 +74,8 @@
       position: relative;
     }
 
-    .card:nth-child(3n) {
-      border-right: none;
-    }
+    .card:nth-child(3n) { border-right: none; }
 
-    /* Внутренние границы карточек для полного сходства */
     .card-inner-top {
       display: flex;
       justify-content: space-between;
@@ -137,7 +88,7 @@
 
     .image-wrapper {
       width: 100%;
-      aspect-ratio: 3/4;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
       margin-bottom: 1.5vw;
       background: #f0f0f0;
@@ -156,19 +107,8 @@
       filter: grayscale(0%);
     }
 
-    .card h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.75vw;
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      line-height: 1.5;
-      color: #444;
-      margin-bottom: 2vw;
-      flex-grow: 1;
-    }
+    .card h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75vw; }
+    .card p { font-size: 0.85rem; line-height: 1.5; color: #444; margin-bottom: 2vw; flex-grow: 1; }
 
     .card-meta {
       font-size: 0.7rem;
@@ -180,6 +120,29 @@
       font-weight: 600;
     }
 
+    /* Подвал */
+    .footer {
+      background-color: var(--black);
+      color: var(--white);
+      padding: 3vw 2vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .footer a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 1.5vw;
+      transition: opacity 0.2s;
+    }
+
+    .footer a:hover { opacity: 0.6; }
+
     /* Адаптив */
     @media (max-width: 1024px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
@@ -189,17 +152,17 @@
 
     @media (max-width: 768px) {
       .grid { grid-template-columns: 1fr; }
-      .card { border-right: none; border-bottom: var(--hairline); }
-      .tags { display: none; } /* Скрытие фильтров на мобильных */
+      .card { border-right: none; }
+      .top-bar nav { gap: 4vw; }
+      .footer { flex-direction: column; gap: 2vw; text-align: center; }
+      .footer nav { margin-top: 1vw; }
+      .footer a { margin: 0 2vw; }
     }
 
     /* Анимация перехода */
     .transition-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--black);
       z-index: 9999;
       transform: scaleY(0);
@@ -208,9 +171,7 @@
       pointer-events: none;
     }
 
-    body.is-transitioning .transition-overlay {
-      transform: scaleY(1);
-    }
+    body.is-transitioning .transition-overlay { transform: scaleY(1); }
   </style>
 </head>
 <body>
@@ -220,99 +181,130 @@
     <div class="top-bar">
       <span>Igor Andreev</span>
       <nav>
-        <a href="#">Projects</a>
-        <a href="#">Behance</a>
-        <a href="#">Info</a>
+        <a onclick="goToPage('about.html')">Обо мне</a>
+        <a href="#" aria-label="Telegram"><i class="ri-telegram-fill"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a href="#" aria-label="Behance"><i class="ri-behance-fill"></i></a>
       </nav>
     </div>
     
     <div class="hero">
       <h1>PORTFOLIO</h1>
     </div>
-
-    <div class="filters-section">
-      <span>Categories</span>
-      <div class="tags">
-        <button class="active">All</button>
-        <button>Brand Identity</button>
-        <button>Design Systems</button>
-      </div>
-    </div>
   </header>
 
   <main class="grid">
-    <!-- Project 1 -->
-    <article class="card" onclick="goToProject('#')">
-      <div class="card-inner-top">
-        <span>Nov 2025</span>
-        <span>Identity</span>
-      </div>
-      <div class="image-wrapper">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Minimalist Identity">
-      </div>
+    <!-- Дублируем карточки до 12 штук -->
+    <!-- 1-3 -->
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Nov 2025</span><span>Identity</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Black & White Minimalist</h2>
       <p>A comprehensive logo presentation template designed in a strict black and white minimalist style to emphasize form and typography.</p>
-      <div class="card-meta">
-        <span>Role: Designer</span>
-        <span>Behance Top</span>
-      </div>
+      <div class="card-meta"><span>Role: Designer</span><span>Behance Top</span></div>
     </article>
-
-    <!-- Project 2 -->
-    <article class="card" onclick="goToProject('#')">
-      <div class="card-inner-top">
-        <span>Jun 2026</span>
-        <span>System</span>
-      </div>
-      <div class="image-wrapper">
-        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Color System">
-      </div>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Jun 2026</span><span>System</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Color Palette Automation</h2>
       <p>Methodology for automatically generating color palettes and defining precise color characteristics within complex layout structures.</p>
-      <div class="card-meta">
-        <span>Role: Art Director</span>
-        <span>System</span>
-      </div>
+      <div class="card-meta"><span>Role: Art Director</span><span>System</span></div>
     </article>
-
-    <!-- Project 3 -->
-    <article class="card" onclick="goToProject('#')">
-      <div class="card-inner-top">
-        <span>Mar 2026</span>
-        <span>Branding</span>
-      </div>
-      <div class="image-wrapper">
-        <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Football Club">
-      </div>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Mar 2026</span><span>Branding</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
       <h2>Football Club Identity</h2>
       <p>Dynamic presentation template for a modern football club logo, focusing on scalability and robust design system integration.</p>
-      <div class="card-meta">
-        <span>Role: Designer</span>
-        <span>Identity</span>
-      </div>
+      <div class="card-meta"><span>Role: Designer</span><span>Identity</span></div>
+    </article>
+    
+    <!-- 4-6 -->
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Feb 2026</span><span>Print</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Editorial Grid Concept</h2>
+      <p>Strict layout principles applied to a modern editorial magazine concept using solely typography and whitespace.</p>
+      <div class="card-meta"><span>Role: Designer</span><span>Editorial</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Jan 2026</span><span>Web</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Monochrome E-commerce</h2>
+      <p>Redefining user experience for luxury fashion retail through absolute minimalism and high-contrast imagery.</p>
+      <div class="card-meta"><span>Role: Lead UI</span><span>E-commerce</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Dec 2025</span><span>Packaging</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Cosmetics Rebranding</h2>
+      <p>Minimalist packaging solution for an organic skincare line, focusing on sustainable materials and bold typography.</p>
+      <div class="card-meta"><span>Role: Art Director</span><span>Packaging</span></div>
+    </article>
+
+    <!-- 7-9 -->
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Nov 2025</span><span>Identity</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Architecture Bureau</h2>
+      <p>Brand identity focusing on spatial awareness, structured grids, and brutalist aesthetics for an architectural firm.</p>
+      <div class="card-meta"><span>Role: Designer</span><span>Branding</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Oct 2025</span><span>App</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Fintech Interface</h2>
+      <p>Streamlined banking application interface removing all non-essential visual noise to focus on data clarity.</p>
+      <div class="card-meta"><span>Role: Product Designer</span><span>Finance</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Sep 2025</span><span>Typography</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Custom Typeface</h2>
+      <p>A grotesque geometric typeface developed specifically for large-scale digital displays and bold headlines.</p>
+      <div class="card-meta"><span>Role: Type Designer</span><span>Typography</span></div>
+    </article>
+
+    <!-- 10-12 -->
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Aug 2025</span><span>Identity</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Gallery Curation</h2>
+      <p>Visual system for a contemporary art gallery relying strictly on negative space and stark contrasts.</p>
+      <div class="card-meta"><span>Role: Art Director</span><span>Art</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Jul 2025</span><span>Exhibition</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Wayfinding System</h2>
+      <p>Physical navigation system utilizing high-contrast industrial materials and clear typographic hierarchies.</p>
+      <div class="card-meta"><span>Role: Designer</span><span>Signage</span></div>
+    </article>
+    <article class="card" onclick="goToPage('#')">
+      <div class="card-inner-top"><span>Jun 2025</span><span>Editorial</span></div>
+      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
+      <h2>Monograph Book</h2>
+      <p>A 200-page retrospective book design utilizing a strictly enforced 12-column Swiss grid structure.</p>
+      <div class="card-meta"><span>Role: Layout Designer</span><span>Print</span></div>
     </article>
   </main>
 
+  <footer class="footer">
+    <div>© 2026 Igor Andreev. Design Portfolio.</div>
+    <nav>
+      <a href="#">Contact</a>
+      <a href="#">Behance</a>
+      <a href="#">Telegram</a>
+    </nav>
+  </footer>
+
   <script>
-    // Плавное появление контента
     document.addEventListener("DOMContentLoaded", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add('page-ready');
-      });
+      requestAnimationFrame(() => document.body.classList.add('page-ready'));
     });
 
-    // Анимация ухода со страницы
-    function goToProject(url) {
+    function goToPage(url) {
       document.body.classList.add('is-transitioning');
-      setTimeout(() => {
-        // В реальном проекте здесь будет переход по ссылке:
-        // window.location.href = url;
-        
-        // Для демо-версии сбрасываем анимацию обратно
-        setTimeout(() => {
-          document.body.classList.remove('is-transitioning');
-        }, 100);
-      }, 600); 
+      setTimeout(() => { window.location.href = url; }, 600); 
     }
   </script>
 </body>
