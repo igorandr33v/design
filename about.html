@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Igor Andreev — About</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --hairline: 1px solid var(--black);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--white);
+      color: var(--black);
+      opacity: 0; 
+      transition: opacity 0.8s ease-out;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    body.page-ready { opacity: 1; }
+
+    /* Шапка */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5vw 2vw;
+      border-bottom: var(--hairline);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .top-bar nav { display: flex; gap: 1.5vw; align-items: center; }
+    .top-bar a { color: var(--black); text-decoration: none; display: flex; align-items: center; transition: opacity 0.2s; cursor: pointer;}
+    .top-bar a:hover { opacity: 0.6; }
+    .top-bar a i { font-size: 1.1rem; }
+
+    /* Контент обо мне */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      flex-grow: 1;
+    }
+
+    .about-image {
+      border-right: var(--hairline);
+      background: #f0f0f0;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    .about-text {
+      padding: 4vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-text h1 {
+      font-size: 5vw;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 2vw;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 2vw;
+      max-width: 80%;
+    }
+
+    .btn-contact {
+      align-self: flex-start;
+      border: var(--hairline);
+      background: transparent;
+      color: var(--black);
+      padding: 1vw 2vw;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-contact:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* Подвал */
+    .footer {
+      background-color: var(--black);
+      color: var(--white);
+      padding: 3vw 2vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-top: var(--hairline);
+    }
+
+    .footer a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 1.5vw;
+      transition: opacity 0.2s;
+    }
+
+    .footer a:hover { opacity: 0.6; }
+
+    /* Адаптив */
+    @media (max-width: 768px) {
+      .about-section { grid-template-columns: 1fr; }
+      .about-image { border-right: none; border-bottom: var(--hairline); height: 50vh; }
+      .about-text h1 { font-size: 12vw; }
+      .about-text p { max-width: 100%; }
+      .top-bar nav { gap: 4vw; }
+      .footer { flex-direction: column; gap: 2vw; text-align: center; }
+      .footer nav { margin-top: 1vw; }
+      .footer a { margin: 0 2vw; }
+    }
+
+    /* Анимация перехода */
+    .transition-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: var(--black);
+      z-index: 9999;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+      pointer-events: none;
+    }
+
+    body.is-transitioning .transition-overlay { transform: scaleY(1); }
+  </style>
+</head>
+<body>
+  <div class="transition-overlay"></div>
+
+  <header>
+    <div class="top-bar">
+      <a onclick="goToPage('index.html')" style="cursor:pointer;">Igor Andreev</a>
+      <nav>
+        <a onclick="goToPage('index.html')">Проекты</a>
+        <a href="#" aria-label="Telegram"><i class="ri-telegram-fill"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a href="#" aria-label="Behance"><i class="ri-behance-fill"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-section">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Igor Andreev Portrait">
+    </div>
+    <div class="about-text">
+      <h1>Art Director &<br>Designer</h1>
+      <p>Я графический дизайнер, специализирующийся на создании смысловой айдентики и строгих дизайн-систем. Мой подход базируется на швейцарской типографике, модульных сетках и абсолютном черно-белом минимализме.</p>
+      <p>Превращаю хаос в структуру, а бизнес-задачи — в выверенные визуальные коммуникации. Открыт для новых проектов и коллабораций.</p>
+      <button class="btn-contact">Связаться со мной</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 Igor Andreev. Design Portfolio.</div>
+    <nav>
+      <a href="#">Contact</a>
+      <a href="#">Behance</a>
+      <a href="#">Telegram</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => document.body.classList.add('page-ready'));
+    });
+
+    function goToPage(url) {
+      document.body.classList.add('is-transitioning');
+      setTimeout(() => { window.location.href = url; }, 600); 
+    }
+  </script>
+</body>
+</html>
