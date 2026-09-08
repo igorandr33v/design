@@ -3,266 +3,1350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Igor Andreev — Portfolio</title>
+  <title>Igor Andreev ⚡ Brand & Identity Designer</title>
+  
+  <!-- Шрифты: выразительный акцидентный Raleway и строгий гротеск IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Иконки Remix Icon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
   <style>
     :root {
-      --black: #000000;
-      --white: #ffffff;
-      --hairline: 1px solid var(--black);
+      /* Палитра из референса 4 (без зеленого цвета) */
+      --color-ochre: #DFA05D;       /* Винтажная горчица / охра */
+      --color-terracotta: #AC5045;  /* Приглушенный терракотово-красный */
+      --color-dark: #1B1817;        /* Глубокий графитовый винтажный черный */
+      --color-cream: #FAF6EF;       /* Теплый кремовый фон */
+      --color-white: #FFFFFF;
+      
+      --border-thick: 2.5px solid var(--color-dark);
+      --border-thin: 1.5px solid var(--color-dark);
+      --shadow-retro: 4px 4px 0px var(--color-dark);
+      --shadow-retro-sm: 2.5px 2.5px 0px var(--color-dark);
+      --shadow-retro-hover: 6px 6px 0px var(--color-dark);
+      
+      /* Строгая система 2 шрифтов */
+      --font-display: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
 
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: var(--white);
-      color: var(--black);
-      opacity: 0; 
-      transition: opacity 0.8s ease-out;
+    html, body {
+      width: 100%;
+      max-width: 100%;
       overflow-x: hidden;
     }
 
-    body.page-ready { opacity: 1; }
-
-    /* Шапка */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5vw 2vw;
-      border-bottom: var(--hairline);
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    /* Стили для логотипа */
-    .logo-link {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .logo-img {
-      height: 50px; /* Измени это значение, чтобы сделать логотип больше или меньше */
-      width: auto;
-      display: block;
-    }
-
-    .top-bar nav { display: flex; gap: 1.5vw; align-items: center; }
-    .top-bar a { color: var(--black); text-decoration: none; display: flex; align-items: center; transition: opacity 0.2s; cursor: pointer; }
-    .top-bar a:hover { opacity: 0.6; }
-    .top-bar a i { font-size: 1.1rem; }
-
-    .hero {
-      padding: 2vw;
-      border-bottom: var(--hairline);
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 13vw;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 0.85;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    /* Сетка проектов */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .card {
-      border-right: var(--hairline);
-      border-bottom: var(--hairline);
-      padding: 2vw;
-      cursor: pointer;
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      position: relative;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
     }
 
-    .card:nth-child(3n) { border-right: none; }
-
-    .card h2 { 
-      font-size: 1.375rem; 
-      font-weight: 700; 
-      margin-bottom: 1.5vw;
-      border-bottom: var(--hairline);
-      padding-bottom: 1vw;
+    body.page-ready {
+      opacity: 1;
     }
 
-    .image-wrapper {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      margin-bottom: 1.5vw;
-      background: #f0f0f0;
+    /* Все заголовки строго на Raleway */
+    h1, h2, h3, h4, .hero-title, .section-heading, .card-title, .logo-brand, .stat-digits {
+      font-family: var(--font-display);
     }
 
-    .image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    .site-header {
+      background-color: var(--color-terracotta);
+      border-bottom: var(--border-thick);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .card:hover .image-wrapper img {
-      transform: scale(1.03);
-      filter: grayscale(0%);
-    }
-
-    .card p { 
-      font-size: 0.85rem; 
-      line-height: 1.5; 
-      color: #444; 
-      margin-bottom: 1vw; 
-      flex-grow: 1; 
-    }
-
-    /* Подвал */
-    .footer {
-      background-color: var(--black);
-      color: var(--white);
-      padding: 3vw 2vw;
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 3vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      gap: 16px;
     }
 
-    .footer a {
-      color: var(--white);
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--color-cream);
       text-decoration: none;
-      margin-left: 1.5vw;
-      transition: opacity 0.2s;
+      cursor: pointer;
+      text-transform: uppercase;
     }
 
-    .footer a:hover { opacity: 0.6; }
-
-    /* Адаптив */
-    @media (max-width: 1024px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .card:nth-child(2n) { border-right: none; }
-      .card:nth-child(3n) { border-right: var(--hairline); }
+    .nav-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-      .card { border-right: none; }
-      .top-bar nav { gap: 4vw; }
-      .footer { flex-direction: column; gap: 2vw; text-align: center; }
-      .footer nav { margin-top: 1vw; }
-      .footer a { margin: 0 2vw; }
-      .logo-img { height: 20px; } /* Чуть меньше логотип на мобильных */
+    .pill-btn {
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: var(--border-thick);
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      box-shadow: var(--shadow-retro-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Анимация перехода */
-    .transition-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: var(--black);
-      z-index: 9999;
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+    .pill-btn:hover {
+      transform: translate(-1.5px, -1.5px);
+      box-shadow: var(--shadow-retro);
+      background-color: var(--color-white);
+    }
+
+    .pill-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0px 0px 0px var(--color-dark);
+    }
+
+    .pill-btn.active {
+      background-color: var(--color-ochre);
+      color: var(--color-dark);
+      box-shadow: var(--shadow-retro);
+    }
+
+    .pill-btn.pill-highlight {
+      background-color: var(--color-dark);
+      color: var(--color-cream);
+    }
+
+    .pill-btn.pill-highlight:hover {
+      background-color: #2e2a28;
+      color: var(--color-cream);
+    }
+
+    /* Круглые иконки соцсетей на белом фоне */
+    .pill-btn.btn-circle {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      background-color: var(--color-white);
+      color: var(--color-dark);
+    }
+
+    .pill-btn.btn-circle:hover {
+      background-color: var(--color-ochre);
+      color: var(--color-dark);
+    }
+
+    .hero-banner {
+      background-color: var(--color-terracotta);
+      border-bottom: var(--border-thick);
+      padding: 5vw 3vw 4vw;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(223, 160, 93, 0.22) 0%, rgba(172, 80, 69, 0) 70%);
       pointer-events: none;
     }
 
-    body.is-transitioning .transition-overlay { transform: scaleY(1); }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 8.2vw, 7.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.88;
+      text-transform: uppercase;
+      color: var(--color-cream);
+      text-shadow: 4px 4px 0px var(--color-dark);
+      margin-bottom: 20px;
+      word-break: normal;
+      display: inline-block;
+      transform: scaleX(1.25);
+      transform-origin: center;
+    }
+
+    .hero-sub-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background-color: var(--color-ochre);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-retro);
+      border-radius: 999px;
+      padding: 8px 24px;
+      font-family: var(--font-sans);
+      font-size: clamp(0.68rem, 1.4vw, 0.82rem);
+      font-weight: 700;
+      color: var(--color-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .view-content {
+      display: none;
+      flex: 1 0 auto;
+    }
+
+    .view-content.active {
+      display: block;
+      animation: viewSlideIn 0.3s ease-out;
+    }
+
+    @keyframes viewSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .projects-container {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 4vw 3vw;
+    }
+
+    .section-intro-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .section-heading-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2.3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* Карточки проектов */
+    .project-card {
+      background-color: var(--color-white);
+      border: var(--border-thick);
+      border-radius: 24px;
+      box-shadow: var(--shadow-retro);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+      position: relative;
+      min-width: 0;
+    }
+
+    .project-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-retro-hover);
+    }
+
+    .card-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: var(--border-thin);
+    }
+
+    .card-index {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--color-terracotta);
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
+
+    .card-client-tag {
+      font-family: var(--font-sans);
+      background-color: var(--color-cream);
+      border: var(--border-thin);
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .card-img-holder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
+      overflow: hidden;
+      border: var(--border-thick);
+      background-color: #e8e1d6;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .card-img-holder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .card-img-holder img {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .card-description {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #403b39;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .card-tags-row {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      gap: 5px;
+      padding-top: 10px;
+      border-top: var(--border-thin);
+    }
+
+    .tag-bubble {
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: var(--border-thin);
+      background-color: var(--color-ochre);
+      color: var(--color-dark);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .about-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 4vw 3vw 6vw;
+    }
+
+    .about-retro-box {
+      background-color: var(--color-white);
+      border: var(--border-thick);
+      border-radius: 32px;
+      box-shadow: var(--shadow-retro);
+      overflow: hidden;
+    }
+
+    .about-top-banner {
+      background-color: var(--color-ochre);
+      border-bottom: var(--border-thick);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .about-top-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .status-badge {
+      background-color: var(--color-terracotta);
+      color: var(--color-cream);
+      border: var(--border-thick);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-retro-sm);
+    }
+
+    .about-main-grid {
+      display: grid;
+      grid-template-columns: 380px minmax(0, 1fr);
+    }
+
+    .about-story-area {
+      padding: 38px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      background-color: var(--color-white);
+      min-width: 0;
+    }
+
+    .about-aside {
+      padding: 34px 24px;
+      background-color: var(--color-cream);
+      border-right: var(--border-thick);
+      border-bottom: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .avatar-card {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 22px;
+      border: var(--border-thick);
+      box-shadow: var(--shadow-retro);
+      overflow: hidden;
+      background-color: #ddd;
+    }
+
+    .avatar-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(105%);
+    }
+
+    .spec-sheet-box {
+      background-color: var(--color-white);
+      border: var(--border-thick);
+      border-radius: 20px;
+      box-shadow: var(--shadow-retro-sm);
+      padding: 18px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .spec-sheet-title {
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-bottom: var(--border-thin);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .spec-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .spec-lbl {
+      color: #6a625f;
+      font-weight: 500;
+    }
+
+    .spec-val {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .story-lead {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #272322;
+      font-weight: 500;
+    }
+
+    /* Секции опыта и клиентов */
+    .resume-sub-heading {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      border-bottom: var(--border-thick);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .experience-retro-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .exp-card {
+      border: var(--border-thick);
+      border-radius: 18px;
+      background-color: var(--color-cream);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-retro-sm);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exp-company {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-terracotta);
+    }
+
+    .exp-period {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      background-color: var(--color-ochre);
+      border: var(--border-thin);
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+
+    .exp-role {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.98rem;
+      margin-bottom: 8px;
+    }
+
+    .exp-points {
+      list-style: square inside;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: #383332;
+    }
+
+    .exp-points li {
+      margin-bottom: 4px;
+    }
+
+    /* Клиенты и стек */
+    .pill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .brand-pill {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: var(--border-thick);
+      background-color: var(--color-white);
+      color: var(--color-dark);
+      box-shadow: var(--shadow-retro-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .brand-pill:hover {
+      transform: translate(-1.5px, -1.5px);
+      box-shadow: var(--shadow-retro);
+    }
+
+    /* Равномерная сетка для карточки клиентов */
+    .clients-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .clients-cloud .brand-pill {
+      flex: 1 1 auto;
+      text-align: center;
+      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.72rem;
+      padding: 7px 12px;
+    }
+
+    .clients-cloud .brand-pill.pill-wide {
+      flex: 1 1 100%;
+      width: 100%;
+      white-space: normal;
+    }
+
+    .site-footer {
+      background-color: var(--color-dark);
+      color: var(--color-cream);
+      padding: 40px 0;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 3vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--color-ochre);
+    }
+
+    .footer-text {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: #b5ada8;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-pill-link {
+      color: var(--color-cream);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border: 1.5px solid var(--color-cream);
+      border-radius: 999px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-pill-link:hover {
+      background-color: var(--color-ochre);
+      color: var(--color-dark);
+      border-color: var(--color-ochre);
+    }
+
+    .footer-plain-contact {
+      color: var(--color-cream);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0;
+      user-select: all;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Модальное окно */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(27, 24, 23, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background-color: var(--color-white);
+      border: var(--border-thick);
+      border-radius: 28px;
+      box-shadow: 10px 10px 0px var(--color-dark);
+      width: 100%;
+      max-width: 580px;
+      padding: 28px;
+      position: relative;
+      animation: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: var(--border-thick);
+      background: var(--color-ochre);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-retro-sm);
+    }
+
+    @media (max-width: 1200px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .about-main-grid {
+        grid-template-columns: 340px minmax(0, 1fr);
+      }
+      .about-story-area {
+        padding: 32px 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-inner {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .nav-pill-group {
+        justify-content: center;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      .footer-links {
+        justify-content: center;
+      }
+      /* Верстка друг под другом только на мобильных */
+      .about-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-aside {
+        border-right: none;
+        border-bottom: var(--border-thick);
+        padding: 24px 16px;
+      }
+      .about-story-area {
+        padding: 24px 16px;
+      }
+      .avatar-card {
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .avatar-card, .spec-sheet-box {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="transition-overlay"></div>
 
-  <header>
-    <div class="top-bar">
-      <!-- БЛОК ЛОГОТИПА -->
-      <a onclick="goToPage('/')" class="logo-link">
-        <img src="images/logo-black.svg" alt="Igor Andreev Logo" class="logo-img">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo-brand" onclick="switchView('projects')">
+        <span>ИГОРЬ АНДРЕЕВ</span>
       </a>
-      <!-- /БЛОК ЛОГОТИПА -->
-      
-      <nav>
-        <a onclick="goToPage('about.html')">Обо мне</a>
-        <a href="#" aria-label="Telegram"><i class="ri-telegram-fill"></i></a>
-        <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
-        <a href="#" aria-label="Behance"><i class="ri-behance-fill"></i></a>
+
+      <nav class="nav-pill-group">
+        <button class="pill-btn active" id="tab-projects-btn" onclick="switchView('projects')">
+          <i class="ri-gallery-fill"></i> Проекты
+        </button>
+        <button class="pill-btn" id="tab-about-btn" onclick="switchView('about')">
+          <i class="ri-user-star-fill"></i> Обо мне
+        </button>
+        <a href="https://t.me/igorandr33v" target="_blank" class="pill-btn btn-circle" aria-label="Telegram" title="Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:block; transform: translate(-1px, 0.5px);">
+            <path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.674c.458 0 .66-.21.916-.457l2.199-2.138 4.574 3.379c.844.464 1.45.225 1.66-.782l2.997-14.123c.308-1.233-.473-1.793-1.542-1.547z"/>
+          </svg>
+        </a>
+        <a href="https://www.behance.net/igorandree77a8" target="_blank" class="pill-btn btn-circle" aria-label="Behance" title="Behance">
+          <i class="ri-behance-fill"></i>
+        </a>
       </nav>
-    </div>
-    
-    <div class="hero">
-      <h1>PORTFOLIO</h1>
     </div>
   </header>
 
-  <main class="grid">
-    <!-- Project 1 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Croydon football club</h2>
-      <div class="image-wrapper"><img src=images/cover.png alt="Project"></div>
-      <p>Брендинг для футбольного клуба</p>
-    </article>
-    <!-- Project 2 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Color Palette Automation</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Methodology for automatically generating color palettes and defining precise color characteristics within complex layout structures.</p>
-    </article>
-    <!-- Project 3 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Football Club Identity</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Dynamic presentation template for a modern football club logo, focusing on scalability and robust design system integration.</p>
-    </article>
+  <section class="hero-banner">
+    <h1 class="hero-title">ПОРТФОЛИО</h1>
+    <div class="hero-sub-pill">
+      <span>АЙДЕНТИКА БРЕНДОВ</span>
+      <span>&bull;</span>
+      <span>ДИЗАЙН-СИСТЕМЫ</span>
+      <span>&bull;</span>
+      <span>ПРЕПРЕСС И ПОЛИГРАФИЯ</span>
+    </div>
+  </section>
+
+  <!-- ==================== ЭКРАН 1: ПРОЕКТЫ ==================== -->
+  <main id="view-projects" class="view-content active">
     
-    <!-- Project 4 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Editorial Grid Concept</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Strict layout principles applied to a modern editorial magazine concept using solely typography and whitespace.</p>
-    </article>
-    <!-- Project 5 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Monochrome E-commerce</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Redefining user experience for luxury fashion retail through absolute minimalism and high-contrast imagery.</p>
-    </article>
-    <!-- Project 6 -->
-    <article class="card" onclick="goToPage('#')">
-      <h2>Cosmetics Rebranding</h2>
-      <div class="image-wrapper"><img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop" alt="Project"></div>
-      <p>Minimalist packaging solution for an organic skincare line, focusing on sustainable materials and bold typography.</p>
-    </article>
+    <div class="projects-container">
+      
+      <div class="section-intro-bar">
+        <div class="section-heading-box">
+          <h2 class="section-heading">Избранные кейсы</h2>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        
+        <!-- Карточка 1 -->
+        <article class="project-card" onclick="showModal('Добрый город', 'Фестиваль «Добрый город»', 'Комплексная визуальная айдентика для масштабного городского благотворительного события: логотип, навигация, мерч и полиграфия. Реализовано строго по сетке с адаптацией под широкоформатные экраны и печать.')">
+          <div class="card-top-bar">
+            <span class="card-index">01 / АЙДЕНТИКА</span>
+            <span class="card-client-tag">Добрый город</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=900&auto=format&fit=crop" alt="Добрый город">
+          </div>
+          <h3 class="card-title">Добрый город</h3>
+          <p class="card-description">Айдентика фестиваля: логотип, навигационные стойки, сувенирная продукция и полиграфия.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#айдентика</span>
+            <span class="tag-bubble">#мерч</span>
+            <span class="tag-bubble">#навигация</span>
+          </div>
+        </article>
+
+        <!-- Карточка 2 -->
+        <article class="project-card" onclick="showModal('Все дело в смыслах', 'Экспертный подкаст', 'Визуальная система и типографика для серии экспертных выпусков. Разработка цифровых обложек, промо-материалов и графических констант для соцсетей.')">
+          <div class="card-top-bar">
+            <span class="card-index">02 / МЕДИА</span>
+            <span class="card-client-tag">Подкаст</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=900&auto=format&fit=crop" alt="Все дело в смыслах">
+          </div>
+          <h3 class="card-title">Все дело в смыслах</h3>
+          <p class="card-description">Шрифтовой брендинг серии подкастов, диджитал-обложки и промо-макеты для социальных сетей.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#подкаст</span>
+            <span class="tag-bubble">#типографика</span>
+            <span class="tag-bubble">#диджитал</span>
+          </div>
+        </article>
+
+        <!-- Карточка 3 -->
+        <article class="project-card" onclick="showModal('Vietnamese Street Food', 'Сеть кафе', 'Фирменный стиль сети стритфуда: айдентика, оформление упаковки takeaway, униформа персонала и дизайн меню на основе модульной сетки.')">
+          <div class="card-top-bar">
+            <span class="card-index">03 / ОБЩЕПИТ</span>
+            <span class="card-client-tag">Стритфуд</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=900&auto=format&fit=crop" alt="Vietnamese Cafe">
+          </div>
+          <h3 class="card-title">Вьетнамское кафе</h3>
+          <p class="card-description">Айдентика сети кафе, крафтовая takeaway-упаковка, стаканчики и модульное печатное меню.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#упаковка</span>
+            <span class="tag-bubble">#horeca</span>
+            <span class="tag-bubble">#брендбук</span>
+          </div>
+        </article>
+
+        <!-- Карточка 4 -->
+        <article class="project-card" onclick="showModal('Корпоративный мерч', 'Точка Банк', 'Серия корпоративной сувенирной продукции и премиального мерча: адаптация визуального кода, шелкография и строгий препресс без брака.')">
+          <div class="card-top-bar">
+            <span class="card-index">04 / МЕРЧ</span>
+            <span class="card-client-tag">Банк Точка</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=900&auto=format&fit=crop" alt="Корпоративный мерч">
+          </div>
+          <h3 class="card-title">Корпоративный мерч</h3>
+          <p class="card-description">Капсульная коллекция сувениров и одежды: шелкография, вышивка и подготовка к печати.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#b2b</span>
+            <span class="tag-bubble">#мерч</span>
+            <span class="tag-bubble">#шелкография</span>
+          </div>
+        </article>
+
+        <!-- Карточка 5 -->
+        <article class="project-card" onclick="showModal('КАВЗ Стандарты', 'Курганский автобусный завод', 'Систематизация полиграфических стандартов, разработка презентационных каталогов техники и широкоформатной рекламы.')">
+          <div class="card-top-bar">
+            <span class="card-index">05 / ПРОМЫШЛЕННОСТЬ</span>
+            <span class="card-client-tag">Завод КАВЗ</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=900&auto=format&fit=crop" alt="КАВЗ">
+          </div>
+          <h3 class="card-title">Гайдлайн КАВЗ</h3>
+          <p class="card-description">Гайдлайн полиграфических стандартов, строгие многополосные каталоги тяжелой техники.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#каталог</span>
+            <span class="tag-bubble">#промышленность</span>
+            <span class="tag-bubble">#гайдлайн</span>
+          </div>
+        </article>
+
+        <!-- Карточка 6 -->
+        <article class="project-card" onclick="showModal('GetChips Tech', 'GetChips Tech', 'Фирменный стиль поставщика электронных компонентов: лаконичная упаковочная система, антистатические пакеты, маркировка.')">
+          <div class="card-top-bar">
+            <span class="card-index">06 / ХАЙТЕК</span>
+            <span class="card-client-tag">GetChips</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop" alt="GetChips">
+          </div>
+          <h3 class="card-title">GetChips Tech</h3>
+          <p class="card-description">Инженерный минимализм: промышленная упаковка микроэлектроники, стикеры и документация.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#упаковка</span>
+            <span class="tag-bubble">#микрочипы</span>
+            <span class="tag-bubble">#система</span>
+          </div>
+        </article>
+
+        <!-- Карточка 7 -->
+        <article class="project-card" onclick="showModal('IT-форумы', 'СКБ Контур', 'Оформление деловых и образовательных IT-форумов: брендированные стойки, раздаточные материалы, бейджи и широкоформатные баннеры.')">
+          <div class="card-top-bar">
+            <span class="card-index">07 / ИВЕНТЫ</span>
+            <span class="card-client-tag">СКБ Контур</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=900&auto=format&fit=crop" alt="СКБ Контур">
+          </div>
+          <h3 class="card-title">Контур IT-Ивенты</h3>
+          <p class="card-description">Комплексное оформление форумов: стенды, роллапы, бейджи участников и раздатка.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#ивенты</span>
+            <span class="tag-bubble">#полиграфия</span>
+            <span class="tag-bubble">#стенды</span>
+          </div>
+        </article>
+
+        <!-- Карточка 8 -->
+        <article class="project-card" onclick="showModal('Система препресса', 'Mustprint Production', 'Разработка внутренней библиотеки модульных шаблонов, сократившей время подготовки макетов на 30% и исключившей брак при печати.')">
+          <div class="card-top-bar">
+            <span class="card-index">08 / АВТОМАТИЗАЦИЯ</span>
+            <span class="card-client-tag">Mustprint</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=900&auto=format&fit=crop" alt="Mustprint Library">
+          </div>
+          <h3 class="card-title">Препресс система</h3>
+          <p class="card-description">Внутренняя система шаблонов типографии, стандарты допечатной подготовки по ГОСТам.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#автоматизация</span>
+            <span class="tag-bubble">#препресс</span>
+            <span class="tag-bubble">#гост</span>
+          </div>
+        </article>
+
+        <!-- Карточка 9 -->
+        <article class="project-card" onclick="showModal('Газпром Корпоратив', 'Газпром', 'Строгие годовые отчеты, презентационные буклеты и подарочные полиграфические наборы с выборочным лакированием и тиснением.')">
+          <div class="card-top-bar">
+            <span class="card-index">09 / ПЕЧАТЬ</span>
+            <span class="card-client-tag">Газпром B2B</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=900&auto=format&fit=crop" alt="Газпром полиграфия">
+          </div>
+          <h3 class="card-title">Газпром B2B Отчеты</h3>
+          <p class="card-description">Премиальные годовые отчеты, тактильная бумага, выборочный УФ-лак и тиснение фольгой.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#буклеты</span>
+            <span class="tag-bubble">#лакирование</span>
+            <span class="tag-bubble">#b2b</span>
+          </div>
+        </article>
+
+        <!-- Карточка 10 -->
+        <article class="project-card" onclick="showModal('Движение Первых', 'Молодежное движение', 'Разработка яркой атрибутики, текстильного мерча и печатных материалов для региональных молодежных форумов.')">
+          <div class="card-top-bar">
+            <span class="card-index">10 / ДВИЖЕНИЕ</span>
+            <span class="card-client-tag">Первые</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=900&auto=format&fit=crop" alt="Движение Первых">
+          </div>
+          <h3 class="card-title">Первые: Промо-стиль</h3>
+          <p class="card-description">Яркая молодежная айдентика, шевроны, текстильный мерч и плакаты для форумов.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#молодежь</span>
+            <span class="tag-bubble">#текстиль</span>
+            <span class="tag-bubble">#айдентика</span>
+          </div>
+        </article>
+
+        <!-- Карточка 11 -->
+        <article class="project-card" onclick="showModal('Швейцарские плакаты', 'Типографический эксперимент', 'Экспериментальная плакатная серия, исследующая предел читаемости, ритм модульной сетки и швейцарский гротеск.')">
+          <div class="card-top-bar">
+            <span class="card-index">11 / ТИПОГРАФИКА</span>
+            <span class="card-client-tag">Плакаты</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=900&auto=format&fit=crop" alt="Типографика">
+          </div>
+          <h3 class="card-title">Швейцарская сетка</h3>
+          <p class="card-description">Плакатная серия на основе математической модульной сетки и контрастной акциденции.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#сетка</span>
+            <span class="tag-bubble">#типографика</span>
+            <span class="tag-bubble">#постер</span>
+          </div>
+        </article>
+
+        <!-- Карточка 12 -->
+        <article class="project-card" onclick="showModal('Кройдон ФК', 'Спортивный клуб', 'Динамическая айдентика спортивного клуба: переосмысление эмблемы, дизайн игровой формы, билетов и стадионной навигации.')">
+          <div class="card-top-bar">
+            <span class="card-index">12 / СПОРТ</span>
+            <span class="card-client-tag">Кройдон ФК</span>
+          </div>
+          <div class="card-img-holder">
+            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=900&auto=format&fit=crop" alt="Croydon FC">
+          </div>
+          <h3 class="card-title">Футбольный клуб Кройдон</h3>
+          <p class="card-description">Эмблема, дизайн футбольной формы, абонементы болельщиков и стадионный брендинг.</p>
+          <div class="card-tags-row">
+            <span class="tag-bubble">#спорт</span>
+            <span class="tag-bubble">#форма</span>
+            <span class="tag-bubble">#айдентика</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+
   </main>
 
-  <footer class="footer">
-    <div>Igor Andreev. Brand design portfolio.</div>
-    <nav>
-      <a href="#">Contact</a>
-      <a href="#">Behance</a>
-      <a href="#">Telegram</a>
-    </nav>
+  <!-- ==================== ЭКРАН 2: ОБО МНЕ ==================== -->
+  <section id="view-about" class="view-content">
+    
+    <div class="about-wrapper">
+      
+      <div class="about-retro-box">
+        
+        <!-- Верхняя плашка блока "Обо мне" -->
+        <div class="about-top-banner">
+          <div>
+            <h2>ИГОРЬ АНДРЕЕВ &bull; ДИЗАЙНЕР БРЕНДОВ</h2>
+          </div>
+          <div class="status-badge">
+            <i class="ri-flashlight-fill"></i> ОТКРЫТ К ПРОЕКТАМ
+          </div>
+        </div>
+
+        <div class="about-main-grid">
+          
+          <!-- Колонка фото и спецификаций сверху -->
+          <aside class="about-aside">
+            
+            <div class="avatar-card">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Игорь Андреев">
+            </div>
+
+            <div class="spec-sheet-box">
+              <div class="spec-sheet-title">Спецификация &bull; Статус</div>
+              <div class="spec-row"><span class="spec-lbl">Локация:</span> <span class="spec-val">Екатеринбург, РФ</span></div>
+              <div class="spec-row"><span class="spec-lbl">Формат:</span> <span class="spec-val">Удаленно / Офис</span></div>
+              <div class="spec-row"><span class="spec-lbl">Занятость:</span> <span class="spec-val">Полная / Проекты</span></div>
+              <div class="spec-row"><span class="spec-lbl">Английский:</span> <span class="spec-val">B1 (Технический)</span></div>
+              <div class="spec-row"><span class="spec-lbl">Telegram:</span> <span class="spec-val"><a href="https://t.me/igorandr33v" target="_blank" style="color:var(--color-dark);">@igorandr33v</a></span></div>
+            </div>
+
+            <div class="spec-sheet-box">
+              <div class="spec-sheet-title">Образование &bull; УрФУ</div>
+              <p style="font-weight: 800; font-size: 0.85rem; margin-bottom: 4px;">Уральский федеральный университет</p>
+              <p style="font-size: 0.75rem; color: #6a625f; margin-bottom: 8px;">2019 — Бакалавр &bull; 2021 — Магистр</p>
+              <p style="font-size: 0.8rem; line-height: 1.45; color: #333;">Инженерно-химический бэкграунд сформировал системное, алгоритмическое мышление: построение модульных сеток, логика брендбуков и чистый препресс.</p>
+            </div>
+
+            <!-- Корпоративные клиенты в левой колонке -->
+            <div class="spec-sheet-box">
+              <div class="spec-sheet-title">Корпоративные клиенты</div>
+              <div class="clients-cloud">
+                <span class="brand-pill">Банк Точка</span>
+                <span class="brand-pill">Газпром</span>
+                <span class="brand-pill">СКБ Контур</span>
+                <span class="brand-pill">GetChips</span>
+                <span class="brand-pill">«Движение Первых»</span>
+                <span class="brand-pill">КАВЗ</span>
+                <span class="brand-pill pill-wide">15+ брендов малого и среднего бизнеса</span>
+              </div>
+            </div>
+
+          </aside>
+
+          <!-- Текстовая область: манифест, опыт, стек -->
+          <div class="about-story-area">
+            
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 900; text-transform: uppercase; line-height: 1.05; margin-bottom: 14px;">
+                ДИЗАЙН-СИСТЕМЫ, АЙДЕНТИКА И ПРЕПРЕСС
+              </h3>
+              <p class="story-lead">
+                Более 7 лет я проектирую масштабируемую айдентику, брендбуки, упаковку и полиграфические системы для B2B-сектора и смелых брендов. Совмещаю швейцарскую точность верстки, глубокое знание допечатной подготовки и современные генеративные AI-пайплайны.
+              </p>
+            </div>
+
+            <!-- Хронология опыта -->
+            <div>
+              <div class="resume-sub-heading">
+                <span>Опыт работы</span>
+                <span style="font-size: 0.72rem; color: #5a524e;">7 лет 1 месяц</span>
+              </div>
+
+              <div class="experience-retro-list">
+                
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <div>
+                      <span class="exp-company">Mustprint</span>
+                      <span style="font-size: 0.75rem; color: #666; margin-left: 8px;">mustprint.me &bull; Екатеринбург</span>
+                    </div>
+                    <span class="exp-period">Июль 2022 — Сейчас</span>
+                  </div>
+                  <div class="exp-role">Графический дизайнер, бренд-дизайнер</div>
+                  <ul class="exp-points">
+                    <li>Разработал более 150 макетов: логотипы, фирменные стили, мерч, полиграфия для федеральных клиентов.</li>
+                    <li>Создал внутреннюю библиотеку модульных шаблонов, ускорившую подготовку макетов на 20–30%.</li>
+                    <li>Внедрил стандарты препресса для офсетной, цифровой и шелкотрафаретной печати.</li>
+                    <li>Повысил показатель утверждения концептов с первой презентации до 80% за счет глубинного предпроектного брифа.</li>
+                    <li>Айдентика фестиваля «Добрый город», подкаста «Все дело в смыслах», вьетнамских кафе и 15+ брендов.</li>
+                  </ul>
+                </div>
+
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <span class="exp-company">Рекламамама</span>
+                    <span class="exp-period">Июль 2021 — Дек 2021</span>
+                  </div>
+                  <div class="exp-role">Менеджер-дизайнер</div>
+                  <p style="font-size: 0.84rem; line-height: 1.5; color: #383332;">
+                    Полный цикл ведения полиграфических и рекламных заказов: от брифования до выдачи тиража. Наружная реклама, POS-материалы, баннеры и подготовка к печати по требованиям производства.
+                  </p>
+                </div>
+
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <span class="exp-company">Курс «Коммерческая иллюстрация»</span>
+                    <span class="exp-period">Школа Логомашина &bull; 2020</span>
+                  </div>
+                  <p style="font-size: 0.84rem; line-height: 1.5; color: #383332;">
+                    Углубленная прокачка векторной графики, работы с композицией, ритмом и современными иллюстративными стилями для айдентики.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Стек и навыки -->
+            <div>
+              <div class="resume-sub-heading">
+                <span>Профессиональный стек &bull; AI</span>
+              </div>
+              <div class="pill-cloud">
+                <span class="brand-pill">Фирменный стиль</span>
+                <span class="brand-pill">Препресс / Допечатка</span>
+                <span class="brand-pill">AI (Midjourney, SD)</span>
+                <span class="brand-pill">Figma</span>
+                <span class="brand-pill">Adobe Illustrator</span>
+                <span class="brand-pill">Adobe Photoshop</span>
+                <span class="brand-pill">CorelDRAW</span>
+                <span class="brand-pill">Швейцарская сетка</span>
+                <span class="brand-pill">Дизайн упаковки</span>
+                <span class="brand-pill">Брендбуки</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">ИГОРЬ АНДРЕЕВ</div>
+        <div class="footer-text">Айдентика брендов &bull; Дизайн-системы &bull; Препресс &bull; Екатеринбург</div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://t.me/igorandr33v" target="_blank" class="footer-pill-link">Telegram</a>
+        <a href="https://www.behance.net/igorandree77a8" target="_blank" class="footer-pill-link">Behance</a>
+        <span class="footer-plain-contact">igorandr33v.ya@yandex.ru</span>
+        <span class="footer-plain-contact">+7 (909) 702-38-81</span>
+      </div>
+    </div>
   </footer>
+
+  <!-- Модальное окно для кейса -->
+  <div class="modal-backdrop" id="projectModal" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeModal()" title="Закрыть">✕</button>
+      <div style="font-family: var(--font-display); font-size: 0.75rem; font-weight: 800; color: var(--color-terracotta); margin-bottom: 6px;" id="modalClient">
+        КЛИЕНТ
+      </div>
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; margin-bottom: 14px;" id="modalTitle">
+        Название проекта
+      </h3>
+      <p style="font-size: 0.92rem; line-height: 1.6; color: #333; margin-bottom: 20px;" id="modalDesc">
+        Описание проекта
+      </p>
+      <div style="background-color: var(--color-ochre); border: var(--border-thick); border-radius: 14px; padding: 12px; font-family: var(--font-display); font-size: 0.72rem; font-weight: 800; margin-bottom: 20px;">
+        ⚡ Стек проекта: Figma &bull; Illustrator &bull; Препресс ГОСТ &bull; Швейцарская сетка
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <a href="https://t.me/igorandr33v" target="_blank" class="pill-btn pill-highlight">
+          Обсудить проект в Telegram ⚡
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      requestAnimationFrame(() => document.body.classList.add('page-ready'));
+      requestAnimationFrame(() => {
+        document.body.classList.add('page-ready');
+      });
     });
 
-    function goToPage(url) {
-      document.body.classList.add('is-transitioning');
-      setTimeout(() => { window.location.href = url; }, 600); 
+    function switchView(viewName) {
+      const views = document.querySelectorAll('.view-content');
+      const buttons = document.querySelectorAll('.nav-pill-group .pill-btn');
+
+      views.forEach(v => v.classList.remove('active'));
+      buttons.forEach(b => {
+        if (b.id === 'tab-projects-btn' || b.id === 'tab-about-btn') {
+          b.classList.remove('active');
+        }
+      });
+
+      const targetView = document.getElementById(`view-${viewName}`);
+      const targetBtn = document.getElementById(`tab-${viewName}-btn`);
+
+      if (targetView) targetView.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showModal(title, client, desc) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalClient').innerText = client.toUpperCase();
+      document.getElementById('modalDesc').innerText = desc;
+      document.getElementById('projectModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').style.display = 'none';
     }
   </script>
+
 </body>
 </html>
