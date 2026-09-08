@@ -102,6 +102,12 @@
       text-transform: uppercase;
     }
 
+    .logo-img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+
     .nav-pill-group {
       display: flex;
       align-items: center;
@@ -296,14 +302,28 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
       position: relative;
       min-width: 0;
+      cursor: pointer;
     }
 
     .project-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: var(--shadow-retro-hover);
+      transform: translate(-5px, -5px);
+      box-shadow: 8px 8px 0px var(--color-dark);
+    }
+
+    .project-card:hover .card-title {
+      color: var(--color-terracotta);
+    }
+
+    .project-card:hover .card-img-holder img {
+      transform: scale(1.08);
+    }
+
+    .project-card:hover .card-client-tag {
+      background-color: var(--color-ochre);
+      border-color: var(--color-dark);
     }
 
     .card-top-bar {
@@ -397,6 +417,127 @@
       color: var(--color-dark);
       white-space: nowrap;
       letter-spacing: 0.02em;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .project-card:hover .tag-bubble {
+      background-color: var(--color-dark);
+      color: var(--color-cream);
+    }
+
+    /* Стили отдельной страницы проекта */
+    .project-page-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 3vw 3vw 6vw;
+      width: 100%;
+    }
+
+    .project-nav-bar {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .project-page-box {
+      background-color: var(--color-white);
+      border: var(--border-thick);
+      border-radius: 32px;
+      box-shadow: var(--shadow-retro);
+      overflow: hidden;
+    }
+
+    .project-page-header {
+      background-color: var(--color-ochre);
+      border-bottom: var(--border-thick);
+      padding: 24px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .project-page-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .project-page-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .project-body-canvas {
+      padding: 40px 36px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .project-placeholder-banner {
+      width: 100%;
+      border: 2px dashed #b8afa8;
+      background-color: var(--color-cream);
+      border-radius: 20px;
+      padding: 60px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .project-placeholder-banner i {
+      font-size: 2.5rem;
+      color: var(--color-terracotta);
+    }
+
+    .project-placeholder-banner h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--color-dark);
+    }
+
+    .project-placeholder-banner p {
+      font-size: 0.88rem;
+      color: #666;
+      max-width: 480px;
+      line-height: 1.5;
+    }
+
+    .project-grid-placeholder {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .placeholder-block {
+      border: var(--border-thick);
+      border-radius: 20px;
+      background-color: var(--color-cream);
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #7d7571;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .about-wrapper {
@@ -811,6 +952,9 @@
         flex-direction: column;
         gap: 14px;
       }
+      .logo-img {
+        height: 20px;
+      }
       .nav-pill-group {
         justify-content: center;
       }
@@ -851,7 +995,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="logo-brand" onclick="switchView('projects')">
-        <span>ИГОРЬ АНДРЕЕВ</span>
+        <img src="images/logo-white.svg" alt="Igor Andreev Logo" class="logo-img">
       </a>
 
       <nav class="nav-pill-group">
@@ -898,7 +1042,7 @@
       <div class="projects-grid">
         
         <!-- Карточка 1 -->
-        <article class="project-card" onclick="showModal('Добрый город', 'Фестиваль «Добрый город»', 'Комплексная визуальная айдентика для масштабного городского благотворительного события: логотип, навигация, мерч и полиграфия. Реализовано строго по сетке с адаптацией под широкоформатные экраны и печать.')">
+        <article class="project-card" onclick="openProject(1)">
           <div class="card-top-bar">
             <span class="card-index">01 / АЙДЕНТИКА</span>
             <span class="card-client-tag">Добрый город</span>
@@ -916,7 +1060,7 @@
         </article>
 
         <!-- Карточка 2 -->
-        <article class="project-card" onclick="showModal('Все дело в смыслах', 'Экспертный подкаст', 'Визуальная система и типографика для серии экспертных выпусков. Разработка цифровых обложек, промо-материалов и графических констант для соцсетей.')">
+        <article class="project-card" onclick="openProject(2)">
           <div class="card-top-bar">
             <span class="card-index">02 / МЕДИА</span>
             <span class="card-client-tag">Подкаст</span>
@@ -934,7 +1078,7 @@
         </article>
 
         <!-- Карточка 3 -->
-        <article class="project-card" onclick="showModal('Vietnamese Street Food', 'Сеть кафе', 'Фирменный стиль сети стритфуда: айдентика, оформление упаковки takeaway, униформа персонала и дизайн меню на основе модульной сетки.')">
+        <article class="project-card" onclick="openProject(3)">
           <div class="card-top-bar">
             <span class="card-index">03 / ОБЩЕПИТ</span>
             <span class="card-client-tag">Стритфуд</span>
@@ -952,7 +1096,7 @@
         </article>
 
         <!-- Карточка 4 -->
-        <article class="project-card" onclick="showModal('Корпоративный мерч', 'Точка Банк', 'Серия корпоративной сувенирной продукции и премиального мерча: адаптация визуального кода, шелкография и строгий препресс без брака.')">
+        <article class="project-card" onclick="openProject(4)">
           <div class="card-top-bar">
             <span class="card-index">04 / МЕРЧ</span>
             <span class="card-client-tag">Банк Точка</span>
@@ -970,7 +1114,7 @@
         </article>
 
         <!-- Карточка 5 -->
-        <article class="project-card" onclick="showModal('КАВЗ Стандарты', 'Курганский автобусный завод', 'Систематизация полиграфических стандартов, разработка презентационных каталогов техники и широкоформатной рекламы.')">
+        <article class="project-card" onclick="openProject(5)">
           <div class="card-top-bar">
             <span class="card-index">05 / ПРОМЫШЛЕННОСТЬ</span>
             <span class="card-client-tag">Завод КАВЗ</span>
@@ -988,7 +1132,7 @@
         </article>
 
         <!-- Карточка 6 -->
-        <article class="project-card" onclick="showModal('GetChips Tech', 'GetChips Tech', 'Фирменный стиль поставщика электронных компонентов: лаконичная упаковочная система, антистатические пакеты, маркировка.')">
+        <article class="project-card" onclick="openProject(6)">
           <div class="card-top-bar">
             <span class="card-index">06 / ХАЙТЕК</span>
             <span class="card-client-tag">GetChips</span>
@@ -1006,7 +1150,7 @@
         </article>
 
         <!-- Карточка 7 -->
-        <article class="project-card" onclick="showModal('IT-форумы', 'СКБ Контур', 'Оформление деловых и образовательных IT-форумов: брендированные стойки, раздаточные материалы, бейджи и широкоформатные баннеры.')">
+        <article class="project-card" onclick="openProject(7)">
           <div class="card-top-bar">
             <span class="card-index">07 / ИВЕНТЫ</span>
             <span class="card-client-tag">СКБ Контур</span>
@@ -1024,7 +1168,7 @@
         </article>
 
         <!-- Карточка 8 -->
-        <article class="project-card" onclick="showModal('Система препресса', 'Mustprint Production', 'Разработка внутренней библиотеки модульных шаблонов, сократившей время подготовки макетов на 30% и исключившей брак при печати.')">
+        <article class="project-card" onclick="openProject(8)">
           <div class="card-top-bar">
             <span class="card-index">08 / АВТОМАТИЗАЦИЯ</span>
             <span class="card-client-tag">Mustprint</span>
@@ -1042,7 +1186,7 @@
         </article>
 
         <!-- Карточка 9 -->
-        <article class="project-card" onclick="showModal('Газпром Корпоратив', 'Газпром', 'Строгие годовые отчеты, презентационные буклеты и подарочные полиграфические наборы с выборочным лакированием и тиснением.')">
+        <article class="project-card" onclick="openProject(9)">
           <div class="card-top-bar">
             <span class="card-index">09 / ПЕЧАТЬ</span>
             <span class="card-client-tag">Газпром B2B</span>
@@ -1060,7 +1204,7 @@
         </article>
 
         <!-- Карточка 10 -->
-        <article class="project-card" onclick="showModal('Движение Первых', 'Молодежное движение', 'Разработка яркой атрибутики, текстильного мерча и печатных материалов для региональных молодежных форумов.')">
+        <article class="project-card" onclick="openProject(10)">
           <div class="card-top-bar">
             <span class="card-index">10 / ДВИЖЕНИЕ</span>
             <span class="card-client-tag">Первые</span>
@@ -1078,7 +1222,7 @@
         </article>
 
         <!-- Карточка 11 -->
-        <article class="project-card" onclick="showModal('Швейцарские плакаты', 'Типографический эксперимент', 'Экспериментальная плакатная серия, исследующая предел читаемости, ритм модульной сетки и швейцарский гротеск.')">
+        <article class="project-card" onclick="openProject(11)">
           <div class="card-top-bar">
             <span class="card-index">11 / ТИПОГРАФИКА</span>
             <span class="card-client-tag">Плакаты</span>
@@ -1096,7 +1240,7 @@
         </article>
 
         <!-- Карточка 12 -->
-        <article class="project-card" onclick="showModal('Кройдон ФК', 'Спортивный клуб', 'Динамическая айдентика спортивного клуба: переосмысление эмблемы, дизайн игровой формы, билетов и стадионной навигации.')">
+        <article class="project-card" onclick="openProject(12)">
           <div class="card-top-bar">
             <span class="card-index">12 / СПОРТ</span>
             <span class="card-client-tag">Кройдон ФК</span>
@@ -1118,6 +1262,62 @@
     </div>
 
   </main>
+
+  <!-- ==================== ЭКРАН 3: СТРАНИЦА ПРОЕКТА ==================== -->
+  <section id="view-project" class="view-content">
+    <div class="project-page-container">
+      
+      <div class="project-nav-bar">
+        <button class="pill-btn" onclick="switchView('projects')">
+          <i class="ri-arrow-left-line"></i> Назад ко всем проектам
+        </button>
+        <div class="hero-sub-pill" id="projectDetailCategory" style="padding: 6px 18px; font-size: 0.72rem;">
+          КАТЕГОРИЯ
+        </div>
+      </div>
+
+      <div class="project-page-box">
+        
+        <div class="project-page-header">
+          <div>
+            <span id="projectDetailIndex" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 800; color: var(--color-terracotta); letter-spacing: 0.05em; display: block; margin-bottom: 6px;">01 / ПРОЕКТ</span>
+            <h2 class="project-page-title" id="projectDetailTitle">Название проекта</h2>
+          </div>
+          <div class="project-page-meta">
+            <span class="status-badge" id="projectDetailClient">КЛИЕНТ</span>
+          </div>
+        </div>
+
+        <div class="project-body-canvas">
+          
+          <div class="project-placeholder-banner">
+            <i class="ri-layout-masonry-line"></i>
+            <h4>Страница проекта подготовлена к наполнению</h4>
+            <p id="projectDetailDescription">Здесь будет размещена презентация кейса, модульная сетка, гайдлайн и мокапы айдентики.</p>
+          </div>
+
+          <div class="project-grid-placeholder">
+            <div class="placeholder-block">Макет 01 &bull; 16:10</div>
+            <div class="placeholder-block">Макет 02 &bull; 16:10</div>
+            <div class="placeholder-block">Макет 03 &bull; 16:10</div>
+            <div class="placeholder-block">Макет 04 &bull; 16:10</div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: var(--border-thick); padding-top: 24px; flex-wrap: wrap; gap: 14px;">
+            <button class="pill-btn" onclick="switchView('projects')">
+              <i class="ri-arrow-left-line"></i> Все проекты
+            </button>
+            <a href="https://t.me/igorandr33v" target="_blank" class="pill-btn pill-highlight">
+              Обсудить проект в Telegram ⚡
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
 
   <!-- ==================== ЭКРАН 2: ОБО МНЕ ==================== -->
   <section id="view-about" class="view-content">
@@ -1310,6 +1510,21 @@
   </div>
 
   <script>
+    const projectsDatabase = {
+      1: { title: "Добрый город", client: "Фестиваль «Добрый город»", category: "01 / АЙДЕНТИКА", desc: "Айдентика фестиваля: логотип, навигационные стойки, сувенирная продукция и полиграфия." },
+      2: { title: "Все дело в смыслах", client: "Экспертный подкаст", category: "02 / МЕДИА", desc: "Шрифтовой брендинг серии подкастов, диджитал-обложки и промо-макеты для социальных сетей." },
+      3: { title: "Вьетнамское кафе", client: "Сеть стритфуда", category: "03 / ОБЩЕПИТ", desc: "Айдентика сети кафе, крафтовая takeaway-упаковка, стаканчики и модульное печатное меню." },
+      4: { title: "Корпоративный мерч", client: "Банк Точка", category: "04 / МЕРЧ", desc: "Капсульная коллекция сувениров и одежды: шелкография, вышивка и подготовка к печати." },
+      5: { title: "Гайдлайн КАВЗ", client: "Курганский автобусный завод", category: "05 / ПРОМЫШЛЕННОСТЬ", desc: "Гайдлайн полиграфических стандартов, строгие многополосные каталоги тяжелой техники." },
+      6: { title: "GetChips Tech", client: "GetChips Tech", category: "06 / ХАЙТЕК", desc: "Инженерный минимализм: промышленная упаковка микроэлектроники, стикеры и документация." },
+      7: { title: "Контур IT-Ивенты", client: "СКБ Контур", category: "07 / ИВЕНТЫ", desc: "Комплексное оформление форумов: стенды, роллапы, бейджи участников и раздатка." },
+      8: { title: "Препресс система", client: "Mustprint Production", category: "08 / АВТОМАТИЗАЦИЯ", desc: "Внутренняя система шаблонов типографии, стандарты допечатной подготовки по ГОСТам." },
+      9: { title: "Газпром B2B Отчеты", client: "Газпром B2B", category: "09 / ПЕЧАТЬ", desc: "Премиальные годовые отчеты, тактильная бумага, выборочный УФ-лак и тиснение фольгой." },
+      10: { title: "Первые: Промо-стиль", client: "Молодежное движение", category: "10 / ДВИЖЕНИЕ", desc: "Яркая молодежная айдентика, шевроны, текстильный мерч и плакаты для форумов." },
+      11: { title: "Швейцарская сетка", client: "Типографический эксперимент", category: "11 / ТИПОГРАФИКА", desc: "Плакатная серия на основе математической модульной сетки и контрастной акциденции." },
+      12: { title: "Футбольный клуб Кройдон", client: "Спортивный клуб", category: "12 / СПОРТ", desc: "Эмблема, дизайн футбольной формы, абонементы болельщиков и стадионный брендинг." }
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => {
         document.body.classList.add('page-ready');
@@ -1334,6 +1549,19 @@
       if (targetBtn) targetBtn.classList.add('active');
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openProject(projectId) {
+      const data = projectsDatabase[projectId];
+      if (!data) return;
+
+      document.getElementById('projectDetailTitle').innerText = data.title;
+      document.getElementById('projectDetailClient').innerText = data.client.toUpperCase();
+      document.getElementById('projectDetailCategory').innerText = data.category;
+      document.getElementById('projectDetailIndex').innerText = String(projectId).padStart(2, '0') + " / ПРОЕКТ";
+      document.getElementById('projectDetailDescription').innerText = data.desc;
+
+      switchView('project');
     }
 
     function showModal(title, client, desc) {
